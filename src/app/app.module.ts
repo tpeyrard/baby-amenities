@@ -6,7 +6,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from '../environments/environment';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatListModule, MatListOption, MatSelectionList} from '@angular/material';
+import {MatIconModule, MatListModule, MatToolbarModule} from '@angular/material';
 
 import { AppComponent } from './app.component';
 
@@ -22,14 +22,14 @@ import { AppComponent } from './app.component';
     AngularFireAuthModule,
     BrowserAnimationsModule,
     MatListModule,
-    MatListOption,
-    MatSelectionList,
+    MatToolbarModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent],
   exports: [
     MatListModule,
-    MatListOption,
-    MatSelectionList]
+    MatToolbarModule,
+    MatIconModule]
 })
 export class AppModule { }

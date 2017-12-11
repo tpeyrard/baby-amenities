@@ -1,9 +1,11 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-</div>
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <h1>Welcome to {{ title }}</h1>
+    <span class="example-spacer"></span>
+    <mat-icon class="example-icon">verified_user</mat-icon>
+  </mat-toolbar-row>
+</mat-toolbar>
+
 <h2>Here is a list of shoes: </h2>
 
 <mat-selection-list #shoes>
@@ -13,7 +15,7 @@
 </mat-selection-list>
 
 <p>
-  Options selected: {{shoes.selectedOptions.selected.length}}
+  Number of options selected: {{shoes.selectedOptions.selected.length}}
 </p>
 
 
