@@ -1,6 +1,7 @@
 import {async, TestBed} from '@angular/core/testing';
 import {AppComponent} from './app.component';
-import {MatIconModule, MatListModule, MatToolbarModule} from '@angular/material';
+import {MatIconModule, MatListModule, MatSidenavModule, MatToolbarModule} from '@angular/material';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -9,9 +10,11 @@ describe('AppComponent', () => {
         AppComponent
       ],
       imports: [
+        BrowserAnimationsModule,
         MatListModule,
         MatIconModule,
-        MatToolbarModule
+        MatToolbarModule,
+        MatSidenavModule
       ]
     }).compileComponents();
   }));

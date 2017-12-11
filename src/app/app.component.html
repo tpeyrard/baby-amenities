@@ -1,21 +1,29 @@
-<mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <h1>Welcome to {{ title }}</h1>
-    <span class="example-spacer"></span>
-    <mat-icon class="example-icon">verified_user</mat-icon>
-  </mat-toolbar-row>
-</mat-toolbar>
+<div id="wrapper">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <h1>Welcome to {{ title }}</h1>
+      <span class="example-spacer"></span>
+      <mat-icon class="example-icon">verified_user</mat-icon>
+    </mat-toolbar-row>
+  </mat-toolbar>
 
-<h2>Here is a list of shoes: </h2>
+  <mat-sidenav-container>
+    <mat-sidenav #sidenav mode="side" opened="true" class="fixed-nav">
+      Sidenav not fixed
+    </mat-sidenav>
+    <mat-sidenav-content class="nav-content">
+      <h2>Here is a list of shoes: </h2>
 
-<mat-selection-list #shoes>
-  <mat-list-option *ngFor="let shoe of typesOfShoes">
-    {{shoe}}
-  </mat-list-option>
-</mat-selection-list>
+      <mat-selection-list #shoes>
+        <mat-list-option *ngFor="let shoe of typesOfShoes">
+          {{shoe}}
+        </mat-list-option>
+      </mat-selection-list>
 
-<p>
-  Number of options selected: {{shoes.selectedOptions.selected.length}}
-</p>
-
+      <p>
+        Number of options selected: {{shoes.selectedOptions.selected.length}}
+      </p>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
 
