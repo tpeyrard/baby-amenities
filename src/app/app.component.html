@@ -1,5 +1,5 @@
-<div id="wrapper">
-  <mat-toolbar color="primary">
+<div fxFlexFill style="position: absolute; height: 100%; min-height: 100%; min-width: 100%; width: 100%; flex-direction: column; box-sizing: border-box; display: flex;">
+  <mat-toolbar color="primary" style="position: relative">
     <mat-toolbar-row>
       <h1>Welcome to {{ title }}</h1>
       <span class="example-spacer"></span>
@@ -7,11 +7,11 @@
     </mat-toolbar-row>
   </mat-toolbar>
 
-  <mat-sidenav-container>
-    <mat-sidenav #sidenav mode="side" opened="true" class="fixed-nav">
+  <mat-sidenav-container style="position: relative; height: 100%; min-height: 100%; min-width: 100%; width: 100%; flex-direction: row; display: flex;">
+    <mat-sidenav #sidenav mode="side" opened="true" class="fixed-nav" fxFlex="30">
       Sidenav not fixed
     </mat-sidenav>
-    <mat-sidenav-content class="nav-content">
+    <mat-sidenav-content class="nav-content" fxFlex="70" >
       <h2>Here is a list of shoes: </h2>
 
       <mat-selection-list #shoes>
