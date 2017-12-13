@@ -1,29 +1,32 @@
-<div fxFlexFill style="position: absolute; height: 100%; min-height: 100%; min-width: 100%; width: 100%; flex-direction: column; box-sizing: border-box; display: flex;">
-  <mat-toolbar color="primary" style="position: relative">
-    <mat-toolbar-row>
-      <h1>Welcome to {{ title }}</h1>
-      <span class="example-spacer"></span>
-      <mat-icon class="example-icon">verified_user</mat-icon>
-    </mat-toolbar-row>
-  </mat-toolbar>
+<mat-toolbar color="primary" class="header">
+  <mat-toolbar-row>
+    <button mat-icon-button (click)="sidenav.toggle()"><mat-icon class="toolbar-icon">menu</mat-icon></button>
+    <h1 id="title">Welcome to {{ title }}</h1>
+    <span class="spacer"></span>
+    <mat-icon class="toolbar-icon">verified_user</mat-icon>
+  </mat-toolbar-row>
+</mat-toolbar>
 
-  <mat-sidenav-container style="position: relative; height: 100%; min-height: 100%; min-width: 100%; width: 100%; flex-direction: row; display: flex;">
-    <mat-sidenav #sidenav mode="side" opened="true" class="fixed-nav" fxFlex="30">
-      Sidenav not fixed
-    </mat-sidenav>
-    <mat-sidenav-content class="nav-content" fxFlex="70" >
-      <h2>Here is a list of shoes: </h2>
 
-      <mat-selection-list #shoes>
-        <mat-list-option *ngFor="let shoe of typesOfShoes">
-          {{shoe}}
-        </mat-list-option>
-      </mat-selection-list>
+<mat-sidenav-container class="nav-container">
+  <mat-sidenav #sidenav mode="side" opened="true" class="sidenav"
+               [fixedInViewport]="false">
+    Fixed Sidenav
+  </mat-sidenav>
 
-      <p>
-        Number of options selected: {{shoes.selectedOptions.selected.length}}
-      </p>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
-</div>
+  <mat-sidenav-content class="nav-content">
+    <h2>Here is a list of shoes: </h2>
 
+    <mat-selection-list #shoes>
+      <mat-list-option *ngFor="let shoe of typesOfShoes">
+        {{shoe}}
+      </mat-list-option>
+    </mat-selection-list>
+
+    <p>
+      Number of options selected: {{shoes.selectedOptions.selected.length}}
+    </p>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<mat-toolbar class="footer">Footer</mat-toolbar>
