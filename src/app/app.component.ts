@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +7,40 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Amenities';
-  typesOfShoes = ['Boots', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers'];
+  articles = [
+    {
+      name: 'Body',
+      size: '18 mois',
+      category: 'home',
+      image: 'https://media.vertbaudet.fr/Pictures/vertbaudet/38620/lot-de-2-bodies-de-noel-coton-stretch-manches-longues.jpg?width=200',
+      desc: 'Lot de 2 bodies de noël coton stretch manches longues. \nRouge moyen imprimé'
+    },
+    {
+      name: 'Bonnet',
+      size: '18 mois',
+      category: 'shopping_cart',
+      image: 'https://www.centraledesmultiples.com/img_product/s/t/400/st127097557.jpg',
+      desc: '    Le bonnet de naissance en jersey de coton s’associera parfaitement aux deux pyjamas du thème et gardera la tête de bébé bien au chaud.\n' +
+      '    Matière: 100% coton.\n' +
+      '    Taille unique: naissance.'
+    },
+    {
+      name: 'Tétines',
+      size: '36 mois',
+      category: 'child_friendly',
+      image: 'https://www.centraledesmultiples.com/img_product/c/h/400/ch061258860.jpg',
+      desc: 'Etui porte-sucette stérilisable : Pour ranger les sucettes ou les emporter en balade.\n Sans Bpa'
+    },
+    {name: 'Manteau', size: '24 mois', category: 'wb_cloudy', image: '', desc: ''},
+    {
+      name: 'Jean',
+      size: '24 mois',
+      category: 'shopping_cart',
+      image: '',
+      desc: 'Pantalon jean bébé. Denim stretch stone used avec plis aux cuisses.\n' +
+      ' Taille pressionnée ajustable par élastiques et boutons intérieurs.\n' +
+      ' 5 poches avec poche ticket bicolore.\n ' +
+      'Passant fantaisie animobaïbi devant.\n' +
+      ' Jacron Obaïbi au dos. Revers libre en bas de jambe. '
+    }];
 }

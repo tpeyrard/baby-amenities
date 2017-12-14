@@ -18,7 +18,7 @@
 }
 
 .nav-content {
-  padding: 4px 4px 4px 12px;
+  padding: 8px 36px;
   box-sizing: border-box;
 }
 
@@ -37,6 +37,23 @@
   justify-content: center;
   width: 200px;
   box-shadow: 3px 0 6px rgba(0, 0, 0, .24);
+}
+
+.card {
+  margin-bottom: 10px;
+}
+
+.card-content {
+  display: flex;
+}
+
+.card-desc {
+  padding: 4px 8px;
+}
+
+.card-image {
+  max-height: 200px;
+  max-width: 300px;
 }
 
 .footer {

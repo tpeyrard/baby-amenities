@@ -11,21 +11,29 @@
 <mat-sidenav-container class="nav-container">
   <mat-sidenav #sidenav mode="side" opened="true" class="sidenav"
                [fixedInViewport]="false">
-    Fixed Sidenav
+    TODO: Filtres
   </mat-sidenav>
 
   <mat-sidenav-content class="nav-content">
-    <h2>Here is a list of shoes: </h2>
+    <ng-container *ngFor="let article of articles">
+      <mat-card class="card" tabindex="0">
+        <mat-card-header>
+          <mat-icon mat-card-avatar>{{article.category}}</mat-icon>
+          <mat-card-title>{{article.name}}</mat-card-title>
+          <mat-card-subtitle>{{article.size}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content class="card-content">
+          <img class="card-image" src="{{article.image}}" alt="Photo of the product">
+          <p [innerText]="article.desc" class="card-desc"></p>
+        </mat-card-content>
+        <mat-card-actions align="end">
+          <button mat-button>JE PRENDS</button>
+          <span class="spacer"></span>
+          <button mat-button>SUPPRIMER</button>
+        </mat-card-actions>
+      </mat-card>
 
-    <mat-selection-list #shoes>
-      <mat-list-option *ngFor="let shoe of typesOfShoes">
-        {{shoe}}
-      </mat-list-option>
-    </mat-selection-list>
-
-    <p>
-      Number of options selected: {{shoes.selectedOptions.selected.length}}
-    </p>
+    </ng-container>
   </mat-sidenav-content>
 </mat-sidenav-container>
 
