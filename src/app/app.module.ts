@@ -13,11 +13,17 @@ import {
 import {FlexLayoutModule} from "@angular/flex-layout";
 
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
+import { AccountComponent } from './account/account.component';
+import { ArticlesComponent } from './articles/articles.component';
+import {RouterModule} from "@angular/router";
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AccountComponent,
+    ArticlesComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +37,8 @@ import { AppComponent } from './app.component';
     MatSidenavModule,
     FlexLayoutModule,
     MatButtonModule,
-    MatCardModule
+    MatCardModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent],

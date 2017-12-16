@@ -5,12 +5,18 @@ import {
   MatToolbarModule
 } from '@angular/material';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {AppRoutingModule} from "./app-routing.module";
+import {ArticlesComponent} from "./articles/articles.component";
+import {AccountComponent} from "./account/account.component";
+import {APP_BASE_HREF} from "@angular/common";
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent
+        AppComponent,
+        AccountComponent,
+        ArticlesComponent
       ],
       imports: [
         BrowserAnimationsModule,
@@ -19,7 +25,11 @@ describe('AppComponent', () => {
         MatToolbarModule,
         MatSidenavModule,
         MatButtonModule,
-        MatCardModule
+        MatCardModule,
+        AppRoutingModule
+      ],
+      providers: [
+        { provide: APP_BASE_HREF, useValue : '/' }
       ]
     }).compileComponents();
   }));
