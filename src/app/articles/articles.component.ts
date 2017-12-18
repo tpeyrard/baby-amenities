@@ -53,4 +53,9 @@ export class ArticlesComponent implements OnInit {
       ' Jacron Obaïbi au dos. Revers libre en bas de jambe. '
     }];
 
+  removeArticle(id: number) {
+    if (id > -1) {
+      this.articles.splice(id, 1);
+    }
+  }
 }

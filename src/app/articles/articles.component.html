@@ -5,7 +5,7 @@
   </mat-sidenav>
 
   <mat-sidenav-content class="nav-content">
-    <ng-container *ngFor="let article of articles">
+    <ng-container *ngFor="let article of articles; index as id">
       <mat-card class="card" tabindex="0">
         <mat-card-header>
           <mat-icon mat-card-avatar>{{article.category}}</mat-icon>
@@ -19,7 +19,7 @@
         <mat-card-actions align="end">
           <button mat-raised-button color="primary">JE PRENDS</button>
           <span class="spacer"></span>
-          <button mat-button color="warn">SUPPRIMER</button>
+          <button mat-button color="warn" (click)='removeArticle(id)'>SUPPRIMER</button>
         </mat-card-actions>
       </mat-card>
 
