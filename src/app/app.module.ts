@@ -42,10 +42,6 @@ import {RouterModule} from "@angular/router";
   ],
   providers: [],
   bootstrap: [AppComponent],
-  exports: [
-    MatListModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatSidenavModule]
+  exports: []
 })
 export class AppModule { }
