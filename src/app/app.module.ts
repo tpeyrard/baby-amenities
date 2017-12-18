@@ -1,22 +1,26 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { AngularFireAuthModule } from 'angularfire2/auth';
-import { environment } from '../environments/environment';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {AngularFireModule} from 'angularfire2';
+import {AngularFireDatabaseModule} from 'angularfire2/database';
+import {AngularFireAuthModule} from 'angularfire2/auth';
+import {environment} from '../environments/environment';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
-  MatButtonModule, MatCardModule, MatIconModule, MatListModule, MatSidenavModule,
+  MatButtonModule,
+  MatCardModule,
+  MatIconModule,
+  MatListModule,
+  MatSidenavModule,
   MatToolbarModule
 } from '@angular/material';
 import {FlexLayoutModule} from "@angular/flex-layout";
 
-import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing.module';
-import { AccountComponent } from './account/account.component';
-import { ArticlesComponent } from './articles/articles.component';
-import {RouterModule} from "@angular/router";
+import {AppComponent} from './app.component';
+import {AppRoutingModule} from './app-routing.module';
+import {AccountComponent} from './account/account.component';
+import {ArticlesComponent} from './articles/articles.component';
+import {AmenitiesService} from './amenities.service';
 
 
 @NgModule({
@@ -40,7 +44,7 @@ import {RouterModule} from "@angular/router";
     MatCardModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [AmenitiesService],
   bootstrap: [AppComponent],
   exports: []
 })

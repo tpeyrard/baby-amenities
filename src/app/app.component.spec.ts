@@ -9,6 +9,7 @@ import {AppRoutingModule} from "./app-routing.module";
 import {ArticlesComponent} from "./articles/articles.component";
 import {AccountComponent} from "./account/account.component";
 import {APP_BASE_HREF} from "@angular/common";
+import {AmenitiesService} from "./amenities.service";
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -29,7 +30,8 @@ describe('AppComponent', () => {
         AppRoutingModule
       ],
       providers: [
-        { provide: APP_BASE_HREF, useValue : '/' }
+        { provide: APP_BASE_HREF, useValue : '/' },
+        AmenitiesService
       ]
     }).compileComponents();
   }));

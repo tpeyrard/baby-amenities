@@ -6,6 +6,7 @@ import {
   MatToolbarModule
 } from "@angular/material";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {AmenitiesService} from "../amenities.service";
 
 describe('ArticlesComponent', () => {
   let component: ArticlesComponent;
@@ -22,7 +23,8 @@ describe('ArticlesComponent', () => {
         MatSidenavModule,
         MatButtonModule,
         MatCardModule
-      ]
+      ],
+      providers: [AmenitiesService]
     })
     .compileComponents();
   }));
