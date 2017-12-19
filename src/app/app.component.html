@@ -3,13 +3,24 @@
     <button mat-icon-button routerLink="/"><mat-icon>home</mat-icon></button>
     <h1 id="title">Welcome to {{ title }}</h1>
     <span class="spacer"></span>
+    <div *ngIf="user">
+      {{ user.displayName }}
+    </div>
     <nav>
       <button mat-icon-button routerLink="/account" fxShow="{{signedIn}}"><mat-icon aria-hidden="true">account_circle</mat-icon></button>
-      <button mat-icon-button (click)="login()"><mat-icon aria-hidden="true">{{computeLock()}}</mat-icon></button>
+      <button mat-icon-button (click)="signIn()"><mat-icon aria-hidden="true">{{computeLock()}}</mat-icon></button>
     </nav>
   </mat-toolbar-row>
 </mat-toolbar>
 
-<router-outlet></router-outlet>
 
-<mat-toolbar class="footer">Footer</mat-toolbar>
+<div *ngIf="user; else showLogin">
+  <router-outlet></router-outlet>
+</div>
+<ng-template #showLogin>
+  <div id="showLoginForm">
+  <button  mat-raised-button color="accent"(click)="signIn()">Login with Google</button>
+  </div>
+</ng-template>
+
+<mat-toolbar class="footer">Footer - <button fxShow="{{signedIn}}" (click)="signOut()">Logout</button></mat-toolbar>
