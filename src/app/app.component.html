@@ -4,8 +4,8 @@
     <h1 id="title">Welcome to {{ title }}</h1>
     <span class="spacer"></span>
     <nav>
-      <button mat-icon-button routerLink="/account"><mat-icon>account_circle</mat-icon></button>
-      <button mat-icon-button routerLink="/login"><mat-icon>verified_user</mat-icon></button>
+      <button mat-icon-button routerLink="/account" fxShow="{{signedIn}}"><mat-icon aria-hidden="true">account_circle</mat-icon></button>
+      <button mat-icon-button (click)="login()"><mat-icon aria-hidden="true">{{computeLock()}}</mat-icon></button>
     </nav>
   </mat-toolbar-row>
 </mat-toolbar>
