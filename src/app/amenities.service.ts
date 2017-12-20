@@ -12,7 +12,7 @@ export class AmenitiesService {
   }
 
   getArticles(): Observable<any[]> {
-    return this.database.list('/baby-amenities').valueChanges();
+    return this.database.list('/').valueChanges();
   }
 
   login() {
