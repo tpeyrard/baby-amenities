@@ -20,8 +20,14 @@
   padding: 8px;
   align-items: center;
   justify-content: center;
-  width: 200px;
+  max-width: 200px;
   box-shadow: 3px 0 6px rgba(0, 0, 0, .24);
+}
+
+@media (max-width: 400px) {
+  .nav-content {
+    padding: 8px;
+  }
 }
 
 .card {
@@ -37,6 +43,13 @@
 }
 
 .card-image {
+  object-fit: cover;
   max-height: 200px;
-  max-width: 300px;
+  max-width: 200px;
+  min-width: 120px;
+}
+
+.card-actions {
+  display: flex;
+  flex-wrap: wrap;
 }

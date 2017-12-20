@@ -16,7 +16,7 @@
           <img class="card-image" src="{{article.image}}" alt="Photo of the product">
           <p [innerText]="article.desc" class="card-desc"></p>
         </mat-card-content>
-        <mat-card-actions align="end">
+        <mat-card-actions class="card-actions">
           <button mat-raised-button color="primary">JE PRENDS</button>
           <span class="spacer"></span>
           <button mat-button color="warn" (click)='removeArticle(id)'>SUPPRIMER</button>
