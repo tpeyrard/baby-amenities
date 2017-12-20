@@ -45,7 +45,7 @@ nav a.active {
 #showLoginForm {
   position: absolute;
   top: 60px;
-  bottom: 0px;
+  bottom: 0;
   left: 0;
   right: 0;
   transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -58,4 +58,8 @@ nav a.active {
 #showLoginForm button > * {
   vertical-align: middle;
   text-transform: none;
+}
+
+#userName {
+  font-size: small;
 }

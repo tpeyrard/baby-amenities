@@ -4,7 +4,7 @@
     <h1 id="title">Welcome to {{ title }}</h1>
     <span class="spacer"></span>
     <div *ngIf="user">
-      {{ user.displayName }}
+      <p id="userName">{{ user.displayName }}</p>
     </div>
     <nav>
       <button mat-icon-button routerLink="/account" fxShow="{{signedIn}}"><mat-icon aria-hidden="true">account_circle</mat-icon></button>
@@ -25,4 +25,6 @@
   </div>
 </ng-template>
 
-<mat-toolbar class="footer">Footer - <button fxShow="{{signedIn}}" (click)="signOut()">Logout</button></mat-toolbar>
+<mat-toolbar class="footer">Footer<span class="spacer"></span> <button mat-button color="warn" fxShow="{{signedIn}}" (click)="signOut()">Logout</button>
+
+</mat-toolbar>

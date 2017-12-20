@@ -53,3 +53,10 @@
   display: flex;
   flex-wrap: wrap;
 }
+
+#createButton {
+  position: fixed;
+  bottom: 70px;
+  right: 1.5em;
+  z-index: 100;
+}
