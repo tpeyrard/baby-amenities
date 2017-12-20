@@ -10,6 +10,9 @@ import {ArticlesComponent} from "./articles/articles.component";
 import {AccountComponent} from "./account/account.component";
 import {APP_BASE_HREF} from "@angular/common";
 import {AmenitiesService} from "./amenities.service";
+import {AngularFireDatabase} from "angularfire2/database";
+import {FlexLayoutModule} from "@angular/flex-layout";
+import {FirebaseApp} from "angularfire2";
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -27,11 +30,14 @@ describe('AppComponent', () => {
         MatSidenavModule,
         MatButtonModule,
         MatCardModule,
-        AppRoutingModule
+        AppRoutingModule,
+        FlexLayoutModule
       ],
       providers: [
         { provide: APP_BASE_HREF, useValue : '/' },
-        AmenitiesService
+        AmenitiesService,
+        AngularFireDatabase,
+        FirebaseApp
       ]
     }).compileComponents();
   }));

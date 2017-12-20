@@ -7,6 +7,8 @@ import {
 } from "@angular/material";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {AmenitiesService} from "../amenities.service";
+import {FirebaseApp} from "angularfire2";
+import {AngularFireDatabase} from "angularfire2/database";
 
 describe('ArticlesComponent', () => {
   let component: ArticlesComponent;
@@ -24,7 +26,7 @@ describe('ArticlesComponent', () => {
         MatButtonModule,
         MatCardModule
       ],
-      providers: [AmenitiesService]
+      providers: [AmenitiesService, AngularFireDatabase, FirebaseApp]
     })
     .compileComponents();
   }));

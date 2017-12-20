@@ -24,7 +24,7 @@ export class AppComponent implements OnInit {
   }
 
   computeLock(): string {
-    return this.signedIn ? 'lock' : 'lock_open';
+    return this.signedIn ? 'lock_open' : 'lock';
   }
 
   signIn(): void {

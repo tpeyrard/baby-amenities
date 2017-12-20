@@ -45,7 +45,7 @@ nav a.active {
 #showLoginForm {
   position: absolute;
   top: 60px;
-  bottom: 60px;
+  bottom: 0px;
   left: 0;
   right: 0;
   transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);

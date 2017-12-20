@@ -18,8 +18,10 @@
   <router-outlet></router-outlet>
 </div>
 <ng-template #showLogin>
-  <div id="showLoginForm">
-  <button  mat-raised-button color="accent"(click)="signIn()">Login with Google</button>
+  <div id="showLoginForm" class="back-color-primary">
+    <button mat-raised-button color="accent" (click)="signIn()">
+      <mat-icon aria-hidden="true">account_circle</mat-icon>
+      <span>Login with Google</span></button>
   </div>
 </ng-template>
 
