@@ -21,13 +21,15 @@ import {AppRoutingModule} from './app-routing.module';
 import {AccountComponent} from './account/account.component';
 import {ArticlesComponent} from './articles/articles.component';
 import {AmenitiesService} from './amenities.service';
+import { EditorComponent } from './editor/editor.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     AccountComponent,
-    ArticlesComponent
+    ArticlesComponent,
+    EditorComponent
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AmenitiesService} from "../amenities.service";
+import {EditorComponent} from "../editor/editor.component";
 
 @Component({
   selector: 'app-articles',
@@ -10,7 +11,8 @@ export class ArticlesComponent implements OnInit {
 
   articles = [];
 
-  constructor(private amenitiesService : AmenitiesService) { }
+  constructor(private amenitiesService: AmenitiesService, private editor: EditorComponent) {
+  }
 
   ngOnInit() {
     this.getArticles();
@@ -24,5 +26,13 @@ export class ArticlesComponent implements OnInit {
     if (id > -1) {
       this.articles.splice(id, 1);
     }
+  }
+
+  create(): void {
+    this.amenitiesService.authenticationState().subscribe(user => {
+      if (user != null) {
+        this.editor.open();
+      }
+    });
   }
 }
