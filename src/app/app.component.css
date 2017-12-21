@@ -63,3 +63,11 @@ nav a.active {
 #userName {
   font-size: small;
 }
+
+#createButton {
+  display: block;
+  position: fixed;
+  bottom: 70px;
+  right: 1.5em;
+  z-index: 100;
+}

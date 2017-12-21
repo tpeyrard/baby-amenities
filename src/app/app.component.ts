@@ -1,5 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {AmenitiesService} from "./amenities.service";
+import {EditorComponent} from "./editor/editor.component";
 
 @Component({
   selector: 'app-root',
@@ -7,9 +8,12 @@ import {AmenitiesService} from "./amenities.service";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+  @ViewChild(EditorComponent) editor: EditorComponent;
+
   title = 'Amenities';
   signedIn = false;
   user = null;
+  editableArticleId: number;
 
   constructor(private amenitiesService: AmenitiesService) {
   }
@@ -38,4 +42,10 @@ export class AppComponent implements OnInit {
       this.amenitiesService.logout();
     }
   }
+
+  create(): void {
+    this.editableArticleId = null;
+    this.editor.open();
+  }
 }
+

@@ -1,14 +1,18 @@
 <mat-toolbar color="primary" class="header">
   <mat-toolbar-row>
-    <button mat-icon-button routerLink="/"><mat-icon>home</mat-icon></button>
+    <button mat-icon-button routerLink="/">
+      <mat-icon>home</mat-icon>
+    </button>
     <h1 id="title">Welcome to {{ title }}</h1>
     <span class="spacer"></span>
-    <div *ngIf="user">
-      <p id="userName">{{ user.displayName }}</p>
-    </div>
+    <p *ngIf="user" id="userName">{{ user.displayName }}</p>
     <nav>
-      <button mat-icon-button routerLink="/account" fxShow="{{signedIn}}"><mat-icon aria-hidden="true">account_circle</mat-icon></button>
-      <button mat-icon-button (click)="signIn()"><mat-icon aria-hidden="true">{{computeLock()}}</mat-icon></button>
+      <button mat-icon-button routerLink="/account" fxShow="{{signedIn}}">
+        <mat-icon aria-hidden="true">account_circle</mat-icon>
+      </button>
+      <button mat-icon-button (click)="signIn()">
+        <mat-icon aria-hidden="true">{{computeLock()}}</mat-icon>
+      </button>
     </nav>
   </mat-toolbar-row>
 </mat-toolbar>
@@ -25,6 +29,12 @@
   </div>
 </ng-template>
 
-<mat-toolbar class="footer">Footer<span class="spacer"></span> <button mat-button color="warn" fxShow="{{signedIn}}" (click)="signOut()">Logout</button>
+<app-editor></app-editor>
 
+<button mat-fab color="primary" id="createButton" (click)="create()">
+  <mat-icon aria-hidden="true">add</mat-icon>
+</button>
+
+<mat-toolbar class="footer">Footer<span class="spacer"></span>
+  <button mat-button color="warn" fxShow="{{signedIn}}" (click)="signOut()">Logout</button>
 </mat-toolbar>
