@@ -21,8 +21,7 @@ export class EditorComponent implements OnInit {
     let articleName, articleSize;
 
     let dialogRef = this.dialog.open(DialogOverview, {
-      width: '500px',
-      height: '500px',
+      width: '250px',
       data: {name: articleName, articleSize: articleSize}
     });
 
