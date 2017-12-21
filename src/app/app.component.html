@@ -31,7 +31,7 @@
 
 <app-editor></app-editor>
 
-<button mat-fab color="primary" id="createButton" (click)="create()">
+<button mat-fab color="primary" id="createButton" (click)="create()" *ngIf="signedIn">
   <mat-icon aria-hidden="true">add</mat-icon>
 </button>
 

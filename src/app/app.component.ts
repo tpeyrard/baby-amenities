@@ -44,8 +44,10 @@ export class AppComponent implements OnInit {
   }
 
   create(): void {
-    this.editableArticleId = null;
-    this.editor.open();
+    if (this.signedIn) {
+      this.editableArticleId = null;
+      this.editor.open();
+    }
   }
 }
 

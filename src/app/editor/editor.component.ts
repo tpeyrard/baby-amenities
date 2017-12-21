@@ -18,16 +18,13 @@ export class EditorComponent implements OnInit {
   }
 
   open(): void {
-    let articleName, articleSize;
-
     let dialogRef = this.dialog.open(DialogOverview, {
       width: '250px',
-      data: {name: articleName, articleSize: articleSize}
+      data: {name: '', size: '', value: '', category: '', image: '', desc: ''}
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed.');
-      articleSize = result;
+      this.article = result;
     });
 
     console.log("opened the editor");
@@ -37,15 +34,34 @@ export class EditorComponent implements OnInit {
 @Component({
   selector: 'dialog-overview',
   template: `
-    <h1 mat-dialog-title>Hi {{data.name}}</h1>
+    <h1 mat-dialog-title>Add a new article</h1>
     <div mat-dialog-content>
-      <p>What's article size?</p>
       <mat-form-field>
-        <input matInput tabindex="1" [(ngModel)]="data.articleSize">
+        <mat-label>Name</mat-label>
+        <input matInput tabindex="1" [(ngModel)]="article.name" placeholder="Name" required>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Size</mat-label>
+        <input matInput tabindex="2" [(ngModel)]="article.size" placeholder="Size">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Value</mat-label>
+        <input matInput tabindex="3" [(ngModel)]="article.value" placeholder="Value">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Image</mat-label>
+        <input matInput tabindex="4" [(ngModel)]="article.image" placeholder="Image">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Description</mat-label>
+        <textarea matInput tabindex="5" [(ngModel)]="article.desc"
+                  placeholder="Description" matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="5">
+          
+        </textarea>
       </mat-form-field>
     </div>
     <div mat-dialog-actions>
-      <button mat-button [mat-dialog-close]="data.animal" tabindex="2">Create</button>
+      <button mat-button [mat-dialog-close]="article" tabindex="6">Create</button>
       <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
     </div>
   `,
@@ -53,10 +69,14 @@ export class EditorComponent implements OnInit {
 export class DialogOverview {
 
   constructor(public dialogRef: MatDialogRef<DialogOverview>,
-              @Inject(MAT_DIALOG_DATA) public data: any) {
+              @Inject(MAT_DIALOG_DATA) public article: any) {
   }
 
   onNoClick(): void {
-    this.dialogRef.close();
+    this.dialogRef.close(this.article);
+  }
+
+  closeDialog(): void {
+    this.dialogRef.close(this.article);
   }
 }
