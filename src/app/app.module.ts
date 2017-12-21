@@ -7,11 +7,7 @@ import {environment} from '../environments/environment';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
-  MatButtonModule,
-  MatCardModule,
-  MatIconModule,
-  MatListModule,
-  MatSidenavModule,
+  MatButtonModule, MatCardModule, MatDialogModule, MatFormFieldModule, MatIconModule, MatInputModule, MatListModule, MatSidenavModule,
   MatToolbarModule
 } from '@angular/material';
 import {FlexLayoutModule} from "@angular/flex-layout";
@@ -21,7 +17,8 @@ import {AppRoutingModule} from './app-routing.module';
 import {AccountComponent} from './account/account.component';
 import {ArticlesComponent} from './articles/articles.component';
 import {AmenitiesService} from './amenities.service';
-import { EditorComponent } from './editor/editor.component';
+import {DialogOverview, EditorComponent} from './editor/editor.component';
+import {FormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -29,7 +26,8 @@ import { EditorComponent } from './editor/editor.component';
     AppComponent,
     AccountComponent,
     ArticlesComponent,
-    EditorComponent
+    EditorComponent,
+    DialogOverview
   ],
   imports: [
     BrowserModule,
@@ -44,10 +42,16 @@ import { EditorComponent } from './editor/editor.component';
     FlexLayoutModule,
     MatButtonModule,
     MatCardModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    FormsModule,
+    MatInputModule
   ],
+  entryComponents: [DialogOverview],
   providers: [AmenitiesService],
   bootstrap: [AppComponent],
   exports: []
 })
-export class AppModule { }
+export class AppModule {
+}

@@ -1,73 +1,63 @@
-import {Component, EventEmitter, HostBinding, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Inject, Input, OnInit, Output} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material";
 
 @Component({
   selector: 'app-editor',
-  styles: [`
-    :host {
-      display: none;
-      position: absolute;
-      overflow: hidden;
-      top: 60px;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 1;
-    }
-    
-    #tempText {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-  `
-  ],
-  template: `
-    <div id="background" [ngStyle]="backgroundStyle">
-      <p id="tempText">
-        editor works!
-      </p>
-      <div class="controls">
-        <button mat-button (click)="delete">Delete</button>
-        <button mat-button (click)="save">Done</button>
-      </div>
-    </div>
-
-  `
+  styles: [``],
+  template: ``
 })
 export class EditorComponent implements OnInit {
 
-  private opened: boolean;
   @Input() article: object;
-
   @Output() articleChange = new EventEmitter<object>();
 
-  private backgroundStyle: object;
-  @HostBinding('style.background-color') color: string;
-  @HostBinding('style.display') display: string;
-
-  constructor() {
-    this.opened = false;
+  constructor(public dialog: MatDialog) {
   }
 
   ngOnInit() {
   }
 
-  open() {
-    this.opened = true;
-    this.backgroundStyle = {
-      'display': 'block',
-      'position': 'absolute',
-      'top': '0',
-      'left': '0',
-      'width': '256px',
-      'height': '256px',
-      'background-color': 'rgba(62, 66, 181, 0.66)',
-      'transition': '.3s background ease',
-      'outline': 'none'
-    };
-    this.color = 'rgba(62, 66, 181, 0.66)';
-    this.display = 'block';
+  open(): void {
+    let articleName, articleSize;
+
+    let dialogRef = this.dialog.open(DialogOverview, {
+      width: '500px',
+      height: '500px',
+      data: {name: articleName, articleSize: articleSize}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed.');
+      articleSize = result;
+    });
+
     console.log("opened the editor");
+  }
+}
+
+@Component({
+  selector: 'dialog-overview',
+  template: `
+    <h1 mat-dialog-title>Hi {{data.name}}</h1>
+    <div mat-dialog-content>
+      <p>What's article size?</p>
+      <mat-form-field>
+        <input matInput tabindex="1" [(ngModel)]="data.articleSize">
+      </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+      <button mat-button [mat-dialog-close]="data.animal" tabindex="2">Create</button>
+      <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+    </div>
+  `,
+})
+export class DialogOverview {
+
+  constructor(public dialogRef: MatDialogRef<DialogOverview>,
+              @Inject(MAT_DIALOG_DATA) public data: any) {
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 }
