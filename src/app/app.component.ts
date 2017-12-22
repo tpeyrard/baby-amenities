@@ -49,5 +49,10 @@ export class AppComponent implements OnInit {
       this.editor.open();
     }
   }
+
+  persist(article: object) {
+    console.log(article);
+    this.amenitiesService.add(article);
+  }
 }
 

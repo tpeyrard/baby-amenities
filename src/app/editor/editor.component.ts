@@ -25,9 +25,8 @@ export class EditorComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.article = result;
+      this.articleChange.emit(result);
     });
-
-    console.log("opened the editor");
   }
 }
 
@@ -68,8 +67,7 @@ export class EditorComponent implements OnInit {
 })
 export class DialogOverview {
 
-  constructor(public dialogRef: MatDialogRef<DialogOverview>,
-              @Inject(MAT_DIALOG_DATA) public article: any) {
+  constructor(public dialogRef: MatDialogRef<DialogOverview>, @Inject(MAT_DIALOG_DATA) public article: any) {
   }
 
   onNoClick(): void {

@@ -29,7 +29,7 @@
   </div>
 </ng-template>
 
-<app-editor></app-editor>
+<app-editor (articleChange)="persist($event)"></app-editor>
 
 <button mat-fab color="primary" id="createButton" (click)="create()" *ngIf="signedIn">
   <mat-icon aria-hidden="true">add</mat-icon>
