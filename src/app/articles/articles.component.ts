@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AmenitiesService} from "../amenities.service";
+import {Observable} from "rxjs/Observable";
 
 @Component({
   selector: 'app-articles',
@@ -8,22 +9,16 @@ import {AmenitiesService} from "../amenities.service";
 })
 export class ArticlesComponent implements OnInit {
 
-  articles = [];
+  public articles: Observable<any[]>;
 
   constructor(private amenitiesService: AmenitiesService) {
   }
 
   ngOnInit() {
-    this.getArticles();
+    this.articles = this.amenitiesService.getArticles();
   }
 
-  getArticles(): void {
-    this.amenitiesService.getArticles().subscribe(articles => this.articles = articles);
-  }
-
-  removeArticle(id: number) {
-    if (id > -1) {
-      this.articles.splice(id, 1);
-    }
+  removeArticle(id: string) {
+    this.amenitiesService.remove(id);
   }
 }

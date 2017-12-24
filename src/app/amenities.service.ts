@@ -12,13 +12,17 @@ const ARTICLE_PATH = '/';
 export class AmenitiesService {
 
   private articlesRef: AngularFireList<any>;
+  private articles: Observable<any>;
 
   constructor(private database: AngularFireDatabase, private afAuth: AngularFireAuth) {
     this.articlesRef = this.database.list(ARTICLE_PATH);
+    this.articles = this.articlesRef.snapshotChanges().map(changes => {
+      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+    });
   }
 
   getArticles(): Observable<any[]> {
-    return this.articlesRef.valueChanges();
+    return this.articles;
   }
 
   login() {
@@ -35,5 +39,9 @@ export class AmenitiesService {
 
   add(article: object) {
     this.articlesRef.push(article);
+  }
+
+  remove(id: string) {
+    this.articlesRef.remove(id);
   }
 }

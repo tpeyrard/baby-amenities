@@ -51,7 +51,6 @@ export class AppComponent implements OnInit {
   }
 
   persist(article: object) {
-    console.log(article);
     this.amenitiesService.add(article);
   }
 }
