@@ -57,7 +57,7 @@ export class AppComponent implements OnInit {
   }
 
   toggleSidenav(): void {
-    let hasSideNav = 'sidenavToggle' in this.router.component;
+    let hasSideNav = 'sideNavToggle' in this.router.component;
     if (hasSideNav) {
       let component = (<ArticlesComponent>this.router.component);
       component.toggleSidenav();
