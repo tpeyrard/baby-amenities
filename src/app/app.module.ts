@@ -19,6 +19,7 @@ import {ArticlesComponent} from './articles/articles.component';
 import {AmenitiesService} from './amenities.service';
 import {DialogOverview, EditorComponent} from './editor/editor.component';
 import {FormsModule} from "@angular/forms";
+import {MediaMatcher} from "@angular/cdk/layout";
 
 
 @NgModule({
@@ -49,7 +50,7 @@ import {FormsModule} from "@angular/forms";
     MatInputModule
   ],
   entryComponents: [DialogOverview],
-  providers: [AmenitiesService],
+  providers: [AmenitiesService, MediaMatcher],
   bootstrap: [AppComponent],
   exports: []
 })

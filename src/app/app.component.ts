@@ -1,6 +1,8 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {AmenitiesService} from "./amenities.service";
 import {EditorComponent} from "./editor/editor.component";
+import {ArticlesComponent} from "./articles/articles.component";
+import {RouterOutlet} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -9,8 +11,8 @@ import {EditorComponent} from "./editor/editor.component";
 })
 export class AppComponent implements OnInit {
   @ViewChild(EditorComponent) editor: EditorComponent;
+  @ViewChild(RouterOutlet) router: RouterOutlet;
 
-  title = 'Amenities';
   signedIn = false;
   user = null;
   editableArticleId: number;
@@ -52,6 +54,14 @@ export class AppComponent implements OnInit {
 
   persist(article: object) {
     this.amenitiesService.add(article);
+  }
+
+  toggleSidenav(): void {
+    let hasSideNav = 'sidenavToggle' in this.router.component;
+    if (hasSideNav) {
+      let component = (<ArticlesComponent>this.router.component);
+      component.toggleSidenav();
+    }
   }
 }
 
