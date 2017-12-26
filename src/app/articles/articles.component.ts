@@ -2,6 +2,7 @@ import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {AmenitiesService} from "../amenities.service";
 import {Observable} from "rxjs/Observable";
 import {MediaMatcher} from "@angular/cdk/layout";
+import {Article} from "../article";
 
 @Component({
   selector: 'app-articles',
@@ -10,7 +11,7 @@ import {MediaMatcher} from "@angular/cdk/layout";
 })
 export class ArticlesComponent implements OnInit, OnDestroy {
 
-  public articles: Observable<any[]>;
+  public articles: Observable<Article[]>;
   sideNavToggle: boolean;
   private mobileQuery: MediaQueryList;
   private mobileQueryListener: () => void;

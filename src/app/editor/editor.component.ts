@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Inject, Input, OnInit, Output} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material";
+import {Article} from "../article";
 
 @Component({
   selector: 'app-editor',
@@ -8,8 +9,8 @@ import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material";
 })
 export class EditorComponent implements OnInit {
 
-  @Input() article: object;
-  @Output() articleChange = new EventEmitter<object>();
+  @Input() article: Article;
+  @Output() articleChange = new EventEmitter<Article>();
 
   constructor(public dialog: MatDialog) {
   }
@@ -20,7 +21,7 @@ export class EditorComponent implements OnInit {
   open(): void {
     let dialogRef = this.dialog.open(DialogOverview, {
       width: '250px',
-      data: {name: '', size: '', value: '', category: '', image: '', desc: ''}
+      data: new Article()
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -67,7 +68,7 @@ export class EditorComponent implements OnInit {
 })
 export class DialogOverview {
 
-  constructor(public dialogRef: MatDialogRef<DialogOverview>, @Inject(MAT_DIALOG_DATA) public article: any) {
+  constructor(public dialogRef: MatDialogRef<DialogOverview>, @Inject(MAT_DIALOG_DATA) public article: Article) {
   }
 
   onNoClick(): void {

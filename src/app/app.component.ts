@@ -3,6 +3,7 @@ import {AmenitiesService} from "./amenities.service";
 import {EditorComponent} from "./editor/editor.component";
 import {ArticlesComponent} from "./articles/articles.component";
 import {RouterOutlet} from "@angular/router";
+import {Article} from "./article";
 
 @Component({
   selector: 'app-root',
@@ -52,7 +53,7 @@ export class AppComponent implements OnInit {
     }
   }
 
-  persist(article: object) {
+  persist(article: Article) {
     this.amenitiesService.add(article);
   }
 
