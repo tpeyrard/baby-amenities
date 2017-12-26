@@ -31,6 +31,10 @@ export class ArticlesComponent implements OnInit, OnDestroy {
     this.mobileQuery.removeListener(this.mobileQueryListener);
   }
 
+  addToCart(article: Article) {
+    this.amenitiesService.moveToUserCart(article);
+  }
+
   removeArticle(id: string) {
     this.amenitiesService.remove(id);
   }
@@ -38,5 +42,4 @@ export class ArticlesComponent implements OnInit, OnDestroy {
   toggleSidenav(): void {
     this.sideNavToggle = !this.sideNavToggle;
   }
-
 }

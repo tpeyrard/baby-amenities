@@ -7,7 +7,7 @@ import {User} from "firebase";
 import {Article} from "./article";
 
 
-const ARTICLE_PATH = '/';
+const ARTICLE_PATH = '/articles';
 
 @Injectable()
 export class AmenitiesService {
@@ -17,9 +17,13 @@ export class AmenitiesService {
 
   constructor(private database: AngularFireDatabase, private afAuth: AngularFireAuth) {
     this.articlesRef = this.database.list<Article>(ARTICLE_PATH);
-    this.articles = this.articlesRef.snapshotChanges().map(changes => {
-      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
-    });
+    this.articles = this.articlesRef.snapshotChanges()
+      .map(changes => {
+        return changes.map(c => new Article(c.payload.key, c.payload.val()))
+          .filter(article => {
+            return article.taken === undefined || !article.taken;
+          });
+      })
   }
 
   getArticles(): Observable<Article[]> {
@@ -34,12 +38,25 @@ export class AmenitiesService {
     this.afAuth.auth.signOut();
   }
 
-  authenticationState(): Observable<User>{
+  authenticationState(): Observable<User> {
     return this.afAuth.authState;
   }
 
   add(article: Article) {
+    delete article.key;
     this.articlesRef.push(article);
+  }
+
+  moveToUserCart(article: Article) {
+    this.articlesRef.update(article.key, article.take());
+
+    this.authenticationState()
+      .subscribe(user => {
+        if (user) {
+          delete article.key;
+          this.database.list<Article>(user.uid).push(article);
+        }
+      });
   }
 
   remove(id: string) {
