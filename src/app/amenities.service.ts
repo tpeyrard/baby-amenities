@@ -6,14 +6,15 @@ import * as firebase from "firebase";
 import {User} from "firebase";
 import {Article} from "./article";
 
-
 const ARTICLE_PATH = '/articles';
+const USERS_PATH = '/users/';
 
 @Injectable()
 export class AmenitiesService {
 
   private articlesRef: AngularFireList<Article>;
   private articles: Observable<Article[]>;
+  private userArticlesRef: AngularFireList<Article>;
 
   constructor(private database: AngularFireDatabase, private afAuth: AngularFireAuth) {
     this.articlesRef = this.database.list<Article>(ARTICLE_PATH);
@@ -23,7 +24,10 @@ export class AmenitiesService {
           .filter(article => {
             return article.taken === undefined || !article.taken;
           });
-      })
+      });
+    this.authenticationState().subscribe(user => {
+      this.userArticlesRef = this.database.list<Article>(USERS_PATH + user.uid);
+    });
   }
 
   getArticles(): Observable<Article[]> {
@@ -50,16 +54,16 @@ export class AmenitiesService {
   moveToUserCart(article: Article) {
     this.articlesRef.update(article.key, article.take());
 
-    this.authenticationState()
-      .subscribe(user => {
-        if (user) {
-          delete article.key;
-          this.database.list<Article>(user.uid).push(article);
-        }
-      });
+    delete article.key;
+    this.userArticlesRef.push(article);
   }
 
   remove(id: string) {
     this.articlesRef.remove(id);
+  }
+
+  getArticlesForCurrentUser(): Observable<Article[]> {
+    return this.userArticlesRef.snapshotChanges()
+      .map(changes => changes.map(c => new Article(c.payload.key, c.payload.val())));
   }
 }
