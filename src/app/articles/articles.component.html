@@ -1,7 +1,7 @@
 <mat-sidenav-container class="nav-container">
   <mat-sidenav #sidenav mode="side" [opened]="sideNavToggle" class="sidenav"
                [fixedInViewport]="false">
-    TODO: Filtres
+    <h2>{{(articles | async)?.length}} articles</h2>
   </mat-sidenav>
 
   <mat-sidenav-content class="nav-content">
