@@ -93,7 +93,7 @@ import {Article} from "../article";
     `]
 })
 export class AccountComponent implements OnInit {
-  private userArticles: Observable<Article[]>;
+  public userArticles: Observable<Article[]>;
 
   constructor(private amenitiesService: AmenitiesService) {
   }
