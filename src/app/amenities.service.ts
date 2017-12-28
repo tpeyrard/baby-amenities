@@ -24,7 +24,9 @@ export class AmenitiesService {
           .filter(article => article.isAvailable());
       });
     this.authenticationState().subscribe(user => {
-      this.userArticlesRef = this.database.list<Article>(USERS_PATH + user.uid);
+      if (user) {
+        this.userArticlesRef = this.database.list<Article>(USERS_PATH + user.uid);
+      }
     });
   }
 
