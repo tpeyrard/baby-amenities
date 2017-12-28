@@ -1,13 +1,14 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {AmenitiesService} from "../amenities.service";
 import {Observable} from "rxjs/Observable";
 import {Article} from "../article";
+import {MediaMatcher} from "@angular/cdk/layout";
 
 @Component({
   selector: 'app-account',
   template: `
     <mat-sidenav-container class="nav-container">
-      <mat-sidenav #sidenav mode="side" [opened]="true" class="sidenav" [fixedInViewport]="false">
+      <mat-sidenav #sidenav mode="side" [opened]="sideNavToggle" class="sidenav" [fixedInViewport]="false">
         <div *ngIf="(userArticles | async)?.length == 0; else articleCount">
           <h2>No article found.</h2>
         </div>
@@ -57,7 +58,7 @@ import {Article} from "../article";
       padding: 8px;
       align-items: center;
       justify-content: center;
-      width: 200px;
+      max-width: 200px;
       box-shadow: 3px 0 6px rgba(0, 0, 0, .24);
     }
 
@@ -92,17 +93,32 @@ import {Article} from "../article";
     }
     `]
 })
-export class AccountComponent implements OnInit {
+export class AccountComponent implements OnInit, OnDestroy {
   public userArticles: Observable<Article[]>;
+  sideNavToggle: boolean;
+  private mobileQuery: MediaQueryList;
+  private mobileQueryListener: () => void;
 
-  constructor(private amenitiesService: AmenitiesService) {
+  constructor(private amenitiesService: AmenitiesService, media: MediaMatcher, changeDetectorRef: ChangeDetectorRef) {
+    this.mobileQuery = media.matchMedia('(max-width: 600px)');
+    this.mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this.mobileQuery.addListener(this.mobileQueryListener);
   }
 
   ngOnInit() {
     this.userArticles = this.amenitiesService.getArticlesForCurrentUser();
+    this.sideNavToggle = !this.mobileQuery.matches;
+  }
+
+  ngOnDestroy(): void {
+    this.mobileQuery.removeListener(this.mobileQueryListener);
   }
 
   confirmPurchase(article: Article) {
     this.amenitiesService.articleBought(article);
+  }
+
+  toggleSidenav(): void {
+    this.sideNavToggle = !this.sideNavToggle;
   }
 }
