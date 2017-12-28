@@ -34,9 +34,11 @@ export class AppComponent implements OnInit {
     return this.signedIn ? 'lock_open' : 'lock';
   }
 
-  signIn(): void {
+  signInOrOut(): void {
     if (!this.signedIn) {
       this.amenitiesService.login();
+    }else {
+      this.signOut()
     }
   }
 
