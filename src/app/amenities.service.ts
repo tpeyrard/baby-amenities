@@ -21,9 +21,7 @@ export class AmenitiesService {
     this.articles = this.articlesRef.snapshotChanges()
       .map(changes => {
         return changes.map(c => new Article(c.payload.key, c.payload.val()))
-          .filter(article => {
-            return article.taken === undefined || !article.taken;
-          });
+          .filter(article => article.isAvailable());
       });
     this.authenticationState().subscribe(user => {
       this.userArticlesRef = this.database.list<Article>(USERS_PATH + user.uid);
@@ -64,6 +62,17 @@ export class AmenitiesService {
 
   getArticlesForCurrentUser(): Observable<Article[]> {
     return this.userArticlesRef.snapshotChanges()
-      .map(changes => changes.map(c => new Article(c.payload.key, c.payload.val())));
+      .map(changes => changes
+        .map(c => new Article(c.payload.key, c.payload.val()))
+        .filter(article => article.isNotBought()));
+  }
+
+  articleBought(article: Article) {
+    const key = article.key;
+    const purchasedArticle = article.purchase();
+    delete purchasedArticle.key;
+
+    this.userArticlesRef.update(key, purchasedArticle);
+    this.articlesRef.update(key, purchasedArticle);
   }
 }

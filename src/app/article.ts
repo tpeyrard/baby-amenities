@@ -7,12 +7,14 @@ export class Article {
   image: string;
   desc: string;
   taken: boolean;
+  purchased: boolean;
 
   constructor(key?: string, val?: object) {
     this.key = key;
     let from = (<Article>val);
     if (val) {
       this.taken = from.taken || false;
+      this.purchased = from.purchased || false;
       this.name = from.name || '';
       this.size = from.size || '';
       this.value = from.value || '';
@@ -25,5 +27,19 @@ export class Article {
   take(): Article {
     this.taken = true;
     return this;
+  }
+
+  purchase() {
+    this.purchased = true;
+    return this;
+  }
+
+  public isAvailable(): boolean {
+    return (this.taken === undefined || !this.taken)
+      && this.isNotBought();
+  }
+
+  public isNotBought(): boolean {
+    return this.purchased === undefined || !this.purchased;
   }
 }
