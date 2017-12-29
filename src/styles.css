@@ -5,3 +5,56 @@ body {
   font-family: Roboto, Arial, sans-serif;
   margin: 0;
 }
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+/* CARDS */
+.nav-content {
+  position: absolute;
+  top: 60px;
+  left: 0;
+  right: 0;
+  padding: 8px 100px 40px 100px;
+  box-sizing: border-box;
+}
+
+.sidenav {
+  display: flex;
+  padding: 8px;
+  align-items: center;
+  justify-content: center;
+  max-width: 200px;
+  box-shadow: 3px 0 6px rgba(0, 0, 0, .24);
+}
+
+@media (max-width: 400px) {
+  .nav-content {
+    padding: 8px 8px 40px 8px;
+  }
+}
+
+.card {
+  margin-bottom: 10px;
+}
+
+.card-content {
+  display: flex;
+}
+
+.card-desc {
+  padding: 4px 8px;
+}
+
+.card-image {
+  object-fit: cover;
+  max-height: 200px;
+  max-width: 200px;
+  min-width: 120px;
+}
+
+.card-actions {
+  display: flex;
+  flex-wrap: wrap;
+}

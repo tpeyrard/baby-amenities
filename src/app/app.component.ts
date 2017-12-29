@@ -12,11 +12,9 @@ import {Article} from "./article";
 })
 export class AppComponent implements OnInit {
   @ViewChild(EditorComponent) editor: EditorComponent;
-  @ViewChild(RouterOutlet) router: RouterOutlet;
 
   signedIn = false;
   user = null;
-  editableArticleId: number;
 
   constructor(private amenitiesService: AmenitiesService) {
   }
@@ -50,21 +48,12 @@ export class AppComponent implements OnInit {
 
   create(): void {
     if (this.signedIn) {
-      this.editableArticleId = null;
       this.editor.open();
     }
   }
 
   persist(article: Article) {
     this.amenitiesService.add(article);
-  }
-
-  toggleSidenav(): void {
-    let hasSideNav = 'sideNavToggle' in this.router.component;
-    if (hasSideNav) {
-      let component = (<ArticlesComponent>this.router.component);
-      component.toggleSidenav();
-    }
   }
 }
 

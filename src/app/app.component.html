@@ -1,8 +1,5 @@
 <mat-toolbar color="primary" class="header">
   <mat-toolbar-row>
-      <button mat-icon-button (click)="toggleSidenav()">
-        <mat-icon>menu</mat-icon>
-      </button>
       <button mat-icon-button routerLink="/">
         <mat-icon>home</mat-icon>
       </button>
@@ -36,7 +33,3 @@
 <button mat-fab color="primary" id="createButton" (click)="create()" *ngIf="signedIn">
   <mat-icon aria-hidden="true">add</mat-icon>
 </button>
-
-<mat-toolbar class="footer">Footer<span class="spacer"></span>
-  <button mat-button color="warn" fxShow="{{signedIn}}" (click)="signOut()">Logout</button>
-</mat-toolbar>

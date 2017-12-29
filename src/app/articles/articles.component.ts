@@ -7,28 +7,16 @@ import {Article} from "../article";
 @Component({
   selector: 'app-articles',
   templateUrl: './articles.component.html',
-  styleUrls: ['./articles.component.css']
+  styles: [``]
 })
-export class ArticlesComponent implements OnInit, OnDestroy {
+export class ArticlesComponent implements OnInit {
 
   public articles: Observable<Article[]>;
-  sideNavToggle: boolean;
-  private mobileQuery: MediaQueryList;
-  private mobileQueryListener: () => void;
 
-  constructor(private amenitiesService: AmenitiesService, media: MediaMatcher, changeDetectorRef: ChangeDetectorRef) {
-    this.mobileQuery = media.matchMedia('(max-width: 600px)');
-    this.mobileQueryListener = () => changeDetectorRef.detectChanges();
-    this.mobileQuery.addListener(this.mobileQueryListener);
-  }
+  constructor(private amenitiesService: AmenitiesService) {  }
 
   ngOnInit() {
     this.articles = this.amenitiesService.getArticles();
-    this.sideNavToggle = !this.mobileQuery.matches;
-  }
-
-  ngOnDestroy(): void {
-    this.mobileQuery.removeListener(this.mobileQueryListener);
   }
 
   addToCart(article: Article) {
@@ -37,9 +25,5 @@ export class ArticlesComponent implements OnInit, OnDestroy {
 
   removeArticle(id: string) {
     this.amenitiesService.remove(id);
-  }
-
-  toggleSidenav(): void {
-    this.sideNavToggle = !this.sideNavToggle;
   }
 }
