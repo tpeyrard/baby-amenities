@@ -77,4 +77,13 @@ export class AmenitiesService {
     this.userArticlesRef.update(key, purchasedArticle);
     this.articlesRef.update(key, purchasedArticle);
   }
+
+  release(article: Article) {
+    const key = article.key;
+    article.taken = false;
+    delete article.key;
+
+    this.userArticlesRef.remove(key);
+    this.articlesRef.update(key, article);
+  }
 }

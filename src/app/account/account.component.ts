@@ -21,7 +21,7 @@ import {MediaMatcher} from "@angular/cdk/layout";
             </mat-card-content>
             <mat-card-actions class="card-actions" align="end">
               <button mat-raised-button color="primary" (click)="confirmPurchase(article)">Acheté</button>
-              <button mat-button color="warn" (click)='cancel(article.key)' disabled>Annuler</button>
+              <button mat-button color="warn" (click)='cancel(article)'>Annuler</button>
             </mat-card-actions>
           </mat-card>
 
@@ -42,5 +42,9 @@ export class AccountComponent implements OnInit {
 
   confirmPurchase(article: Article) {
     this.amenitiesService.articleBought(article);
+  }
+
+  cancel(article: Article) {
+    this.amenitiesService.release(article);
   }
 }
