@@ -1,18 +1,23 @@
 <mat-toolbar color="primary" class="header">
   <mat-toolbar-row>
-      <button mat-icon-button routerLink="/">
-        <mat-icon>home</mat-icon>
+    <button mat-icon-button routerLink="/">
+      <mat-icon>home</mat-icon>
+    </button>
+    <span class="spacer"></span>
+    <p *ngIf="user" id="userName">{{ user.displayName }}</p>
+    <nav>
+      <button mat-icon-button routerLink="/account" fxShow="{{signedIn}}">
+        <ng-container *ngIf="0 < userArticlesCount; else withoutBadge">
+          <mat-icon aria-hidden="true" class="mdl-badge mdl-badge--overlap" [attr.data-badge]="userArticlesCount">
+            account_circle
+          </mat-icon>
+        </ng-container>
+        <ng-template #withoutBadge><mat-icon aria-hidden="true">account_circle</mat-icon></ng-template>
       </button>
-      <span class="spacer"></span>
-      <p *ngIf="user" id="userName">{{ user.displayName }}</p>
-      <nav>
-        <button mat-icon-button routerLink="/account" fxShow="{{signedIn}}">
-          <mat-icon aria-hidden="true">account_circle</mat-icon>
-        </button>
-        <button mat-icon-button (click)="signInOrOut()">
-          <mat-icon aria-hidden="true">{{computeLock()}}</mat-icon>
-        </button>
-      </nav>
+      <button mat-icon-button (click)="signInOrOut()">
+        <mat-icon aria-hidden="true">{{computeLock()}}</mat-icon>
+      </button>
+    </nav>
   </mat-toolbar-row>
 </mat-toolbar>
 

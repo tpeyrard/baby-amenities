@@ -15,8 +15,9 @@ export class AppComponent implements OnInit {
 
   signedIn = false;
   user = null;
+  public userArticlesCount: number;
 
-  constructor(private amenitiesService: AmenitiesService) {
+  constructor(public amenitiesService: AmenitiesService) {
   }
 
   ngOnInit() {
@@ -25,6 +26,9 @@ export class AppComponent implements OnInit {
       .subscribe(user => {
         this.user = user;
         this.signedIn = (user != null)
+
+        this.amenitiesService.getArticlesForCurrentUser()
+          .subscribe(articles => this.userArticlesCount = articles.length);
       });
   }
 
