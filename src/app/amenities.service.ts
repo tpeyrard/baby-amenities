@@ -47,15 +47,13 @@ export class AmenitiesService {
   }
 
   add(article: Article) {
-    delete article.key;
     this.articlesRef.push(article);
   }
 
   moveToUserCart(article: Article) {
     this.articlesRef.update(article.key, article.take());
 
-    delete article.key;
-    this.userArticlesRef.push(article);
+    this.userArticlesRef.set(article.key, article);
   }
 
   remove(id: string) {
@@ -70,9 +68,8 @@ export class AmenitiesService {
   }
 
   articleBought(article: Article) {
-    const key = article.key;
     const purchasedArticle = article.purchase();
-    delete purchasedArticle.key;
+    const key = purchasedArticle.key;
 
     this.userArticlesRef.update(key, purchasedArticle);
     this.articlesRef.update(key, purchasedArticle);
@@ -81,7 +78,6 @@ export class AmenitiesService {
   release(article: Article) {
     const key = article.key;
     article.taken = false;
-    delete article.key;
 
     this.userArticlesRef.remove(key);
     this.articlesRef.update(key, article);

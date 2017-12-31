@@ -10,9 +10,9 @@ export class Article {
   purchased: boolean;
 
   constructor(key?: string, val?: object) {
-    this.key = key;
     let from = (<Article>val);
     if (val) {
+      this.key = from.key || key;
       this.taken = from.taken || false;
       this.purchased = from.purchased || false;
       this.name = from.name || '';
