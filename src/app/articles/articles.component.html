@@ -1,4 +1,5 @@
 <div class="nav-content">
+  <h2 *ngIf="(articles | async)?.length == 0" style="text-align: center">Cette liste est vide pour le moment.</h2>
   <ng-container *ngFor="let article of articles | async">
     <mat-card class="card" tabindex="0">
       <mat-card-header>

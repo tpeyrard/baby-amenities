@@ -8,6 +8,7 @@ import {MediaMatcher} from "@angular/cdk/layout";
   selector: 'app-account',
   template: `
       <div class="nav-content">
+        <h2 *ngIf="(userArticles | async)?.length == 0" style="text-align: center">Aucun article sélectionné.</h2>
         <ng-container *ngFor="let article of userArticles | async">
           <mat-card class="card" tabindex="0">
             <mat-card-header>
