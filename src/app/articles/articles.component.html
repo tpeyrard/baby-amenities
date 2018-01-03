@@ -3,12 +3,12 @@
   <ng-container *ngFor="let article of articles | async; odd as isOdd">
     <mat-card [ngClass]="isOdd ? 'card card-odd' : 'card'">
       <mat-card-header>
-        <mat-icon mat-card-avatar>{{article.category}}</mat-icon>
+        <mat-icon mat-card-avatar>shopping_cart</mat-icon>
         <mat-card-title>{{article.name}}</mat-card-title>
         <mat-card-subtitle>{{article.size}} - {{article.value}}</mat-card-subtitle>
       </mat-card-header>
       <div class="img-container">
-        <img mat-card-image src="{{article.image || 'http://cdn.inglesina.com/uploads/sites/3/2017/11/2_dpn(2).jpg'}}" alt="Photo of the product">
+        <img mat-card-image src="{{getImage(article)}}" alt="Photo of the product">
       </div>
       <mat-card-content class="card-content">
         <p [innerText]="article.desc" class="card-desc"></p>
