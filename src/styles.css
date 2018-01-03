@@ -16,20 +16,11 @@ body {
   top: 60px;
   left: 0;
   right: 0;
-  padding: 20px 5% 40px 5%;
+  padding: 20px 40px 40px 40px;
   box-sizing: border-box;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-}
-
-.sidenav {
-  display: flex;
-  padding: 8px;
-  align-items: center;
   justify-content: center;
-  max-width: 200px;
-  box-shadow: 3px 0 6px rgba(0, 0, 0, .24);
 }
 
 @media (max-width: 400px) {
@@ -38,31 +29,24 @@ body {
   }
 }
 
+.card-odd {
+  margin-left: 10px !important;
+}
+
 @media (max-width: 900px) {
   .card {
-    flex-basis: 100% !important;
   }
 }
 
 .card {
   margin-bottom: 10px;
-  flex-basis: 45%;
+  width: 400px;
 /*
   Use this to display action buttons at the bottom of the card
   Other idea: fixed height or at least a default image
   display: flex !important;
   flex-direction: column !important;
   justify-content: space-between !important;*/
-}
-
-.card-desc {
-  padding: 4px 8px;
-}
-
-.card-image {
-  object-fit: cover;
-  max-height: 200px;
-  min-width: 120px;
 }
 
 

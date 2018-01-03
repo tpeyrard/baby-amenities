@@ -1,18 +1,18 @@
 <div class="nav-content">
   <h2 *ngIf="(articles | async)?.length == 0" style="text-align: center">Cette liste est vide pour le moment.</h2>
-  <ng-container *ngFor="let article of articles | async">
-    <mat-card class="card" tabindex="0">
+  <ng-container *ngFor="let article of articles | async; odd as isOdd">
+    <mat-card [ngClass]="isOdd ? 'card card-odd' : 'card'">
       <mat-card-header>
         <mat-icon mat-card-avatar>{{article.category}}</mat-icon>
         <mat-card-title>{{article.name}}</mat-card-title>
         <mat-card-subtitle>{{article.size}} - {{article.value}}</mat-card-subtitle>
       </mat-card-header>
+      <img mat-card-image src="{{article.image || 'http://cdn.inglesina.com/uploads/sites/3/2017/11/2_dpn(2).jpg'}}" alt="Photo of the product">
       <mat-card-content class="card-content">
-        <img class="card-image" src="{{article.image}}" alt="Photo of the product">
         <p [innerText]="article.desc" class="card-desc"></p>
       </mat-card-content>
       <mat-card-actions class="card-actions">
-        <button mat-raised-button color="primary" (click)="addToCart(article)">JE PRENDS</button>
+        <button mat-button color="primary" (click)="addToCart(article)">JE PRENDS</button>
         <button mat-button color="warn" (click)='removeArticle(article.key)'>SUPPRIMER</button>
       </mat-card-actions>
     </mat-card>

@@ -21,7 +21,7 @@ import {MediaMatcher} from "@angular/cdk/layout";
               <p [innerText]="article.desc" class="card-desc"></p>
             </mat-card-content>
             <mat-card-actions class="card-actions" align="end">
-              <button mat-raised-button color="primary" (click)="confirmPurchase(article)">Acheté</button>
+              <button mat-button color="primary" (click)="confirmPurchase(article)">Acheté</button>
               <button mat-button color="warn" (click)='cancel(article)'>Annuler</button>
             </mat-card-actions>
           </mat-card>
