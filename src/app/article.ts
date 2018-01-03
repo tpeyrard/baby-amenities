@@ -1,3 +1,30 @@
+export const CATEGORIES = [
+  {value: 'naissance', viewValue: 'Affaires de Naissance'},
+  {value: 'chambre', viewValue: 'Chambre'},
+  {value: 'dehors', viewValue: 'Extérieur'},
+  {value: 'jouet', viewValue: 'Jouets'},
+  {value: 'maman', viewValue: 'Maman'},
+  {value: 'nuit', viewValue: 'Nuit'},
+  {value: 'repas', viewValue: 'Repas'},
+  {value: 'poussette', viewValue: 'Transport'},
+  {value: 'body', viewValue: 'Vêtements de bébé'},
+  {value: 'habits', viewValue: 'Vêtements classics'},
+];
+
+export const CAT_TO_IMAGE = {
+  'habits': '/assets/images/jean.jpg',
+  'body': '/assets/images/body.jpg',
+  'jouet': '/assets/images/velo.jpg',
+  'poussette': '/assets/images/poussette.jpg',
+  'rangement': '/assets/images/coffre.jpg',
+  'maman': '/assets/images/enceinte.jpg',
+  'dehors': '/assets/images/bonnet.jpg',
+  'naissance': '/assets/images/berceau.jpg',
+  'nuit': '/assets/images/lit.jpg',
+  'repas': '/assets/images/repas.jpg',
+  'chambre': '/assets/images/chambre.jpg'
+};
+
 export class Article {
   key: string;
   name: string;

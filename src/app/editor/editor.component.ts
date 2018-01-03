@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Inject, Input, OnInit, Output} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material";
-import {Article} from "../article";
+import {Article, CATEGORIES} from "../article";
 
 @Component({
   selector: 'app-editor',
@@ -51,12 +51,19 @@ export class EditorComponent implements OnInit {
         <input matInput tabindex="3" [(ngModel)]="article.value" placeholder="Value">
       </mat-form-field>
       <mat-form-field style="width: 100%">
+        <mat-select tabindex="4" placeholder="Category" [(ngModel)]="article.category" name="food">
+          <mat-option *ngFor="let category of categories" [value]="category.value">
+            {{category.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field style="width: 100%">
         <mat-label>Image URL</mat-label>
-        <input matInput tabindex="4" [(ngModel)]="article.image" placeholder="Image">
+        <input matInput tabindex="5" [(ngModel)]="article.image" placeholder="Image">
       </mat-form-field>
       <mat-form-field style="width: 100%">
         <mat-label>Description</mat-label>
-        <textarea matInput tabindex="5" [(ngModel)]="article.desc"
+        <textarea matInput tabindex="6" [(ngModel)]="article.desc"
                   placeholder="Description" matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="5">
           
         </textarea>
@@ -69,6 +76,8 @@ export class EditorComponent implements OnInit {
   `,
 })
 export class DialogOverview {
+
+  public categories = CATEGORIES;
 
   constructor(public dialogRef: MatDialogRef<DialogOverview>, @Inject(MAT_DIALOG_DATA) public article: Article) {
   }

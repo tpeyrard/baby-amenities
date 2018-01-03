@@ -7,7 +7,7 @@ import {environment} from '../environments/environment';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
-  MatButtonModule, MatCardModule, MatDialogModule, MatFormFieldModule, MatIconModule, MatInputModule, MatListModule, MatSidenavModule,
+  MatButtonModule, MatCardModule, MatDialogModule, MatFormFieldModule, MatIconModule, MatInputModule, MatListModule, MatOptionModule, MatSelectModule, MatSidenavModule,
   MatToolbarModule
 } from '@angular/material';
 import {FlexLayoutModule} from "@angular/flex-layout";
@@ -47,6 +47,8 @@ import {MediaMatcher} from "@angular/cdk/layout";
     MatDialogModule,
     MatFormFieldModule,
     FormsModule,
+    MatOptionModule,
+    MatSelectModule,
     MatInputModule
   ],
   entryComponents: [DialogOverview],

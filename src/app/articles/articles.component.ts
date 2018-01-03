@@ -1,21 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AmenitiesService} from "../amenities.service";
 import {Observable} from "rxjs/Observable";
-import {Article} from "../article";
-
-const CAT_TO_IMAGE = {
-  'habits': '/assets/images/jean.jpg',
-  'body': '/assets/images/body.jpg',
-  'jouet': '/assets/images/velo.jpg',
-  'poussette': '/assets/images/poussette.jpg',
-  'rangement': '/assets/images/coffre.jpg',
-  'maman': '/assets/images/enceinte.jpg',
-  'dehors': '/assets/images/bonnet.jpg',
-  'naissance': '/assets/images/berceau.jpg',
-  'nuit': '/assets/images/lit.jpg',
-  'repas': '/assets/images/repas.jpg',
-  'chambre': '/assets/images/chambre.jpg'
-};
+import {Article, CAT_TO_IMAGE} from "../article";
 
 @Component({
   selector: 'app-articles',
