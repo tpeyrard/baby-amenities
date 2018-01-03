@@ -25,8 +25,10 @@ export class EditorComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.article = result;
-      this.articleChange.emit(result);
+      if (result) {
+        this.article = result;
+        this.articleChange.emit(result);
+      }
     });
   }
 }
@@ -72,7 +74,7 @@ export class DialogOverview {
   }
 
   onNoClick(): void {
-    this.dialogRef.close(this.article);
+    this.dialogRef.close(undefined);
   }
 
   closeDialog(): void {
