@@ -62,6 +62,17 @@ body {
   transform: translateY(-6%);
 }
 
+.mat-card>.mat-card-actions:last-child {
+  margin-bottom: 0 !important;
+  padding-bottom: 0;
+  bottom: 8px;
+  position: absolute;
+}
+
+.mat-card-content {
+  margin-bottom: 44px !important;
+}
+
 /* BADGE */
 .mdl-badge {
   position: relative;
