@@ -24,7 +24,7 @@ body {
 }
 
 .card-odd {
-  margin-left: 10px !important;
+  margin-left: 6px !important;
 }
 
 @media (max-width: 400px) {
@@ -34,6 +34,16 @@ body {
 
   .card-odd {
     margin-left: 0 !important;
+  }
+
+  .card-even {
+    margin-left: 0 !important;
+  }
+}
+
+@media (min-width: 1000px) {
+  .card-even {
+    margin-left: 6px !important;
   }
 }
 
