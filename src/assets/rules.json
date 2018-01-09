@@ -28,16 +28,15 @@
           ".write": "root.child('users/'+$list_id+'/'+auth.uid).exists() && root.child('list_names/'+$list_id+'/admin').val() === auth.uid",
           ".validate": "newData.hasChildren(['category', 'desc', 'image','key','name','size','value','taken', 'purchased'])",
           "taken": {
-            ".validate": "newData.val() === auth.uid"
+            ".write": "root.child('users/'+$list_id+'/'+auth.uid).exists()",
+            ".validate": "newData.val() === false || newData.val() === true"
           },
           "purchased": {
-            ".validate": "newData.val() === auth.uid"
+            ".write": "root.child('users/'+$list_id+'/'+auth.uid).exists()",
+            ".validate": "newData.val() === false || newData.val() === true"
           },
           "name": {
             ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length < 50"
-          },
-          "$other": {
-            ".validate": false
           }
         }
       }
