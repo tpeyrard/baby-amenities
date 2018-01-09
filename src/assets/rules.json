@@ -1,0 +1,46 @@
+{
+  "rules": {
+    "list_names": {
+      ".read": "auth !== null",
+      ".write": "auth !== null",
+      "$list_id": {
+        ".validate": "newData.isString()",
+        "admin": {
+          ".validate": "newData.val() === auth.uid"
+        }
+      }
+    },
+    "users": {
+      "$list_id": {
+        ".read": "data.child(auth.uid).exists()",
+        ".validate": "root.child('list_names/'+$list_id).exists()",
+        "$user_id": {
+          ".write": "auth != null && auth.uid === $user_id",
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length < 20"
+        }
+      }
+    },
+    "articles": {
+      "$list_id": {
+        ".read": "root.child('users/'+$list_id+'/'+auth.uid).exists()",
+        ".validate": "root.child('list_names/'+$list_id).exists()",
+        "$article_id": {
+          ".write": "root.child('users/'+$list_id+'/'+auth.uid).exists() && root.child('list_names/'+$list_id+'/admin').val() === auth.uid",
+          ".validate": "newData.hasChildren(['category', 'desc', 'image','key','name','size','value','taken', 'purchased'])",
+          "taken": {
+            ".validate": "newData.val() === auth.uid"
+          },
+          "purchased": {
+            ".validate": "newData.val() === auth.uid"
+          },
+          "name": {
+            ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length < 50"
+          },
+          "$other": {
+            ".validate": false
+          }
+        }
+      }
+    }
+  }
+}
