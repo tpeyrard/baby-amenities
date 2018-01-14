@@ -8,8 +8,8 @@ import {Article, CAT_TO_IMAGE} from "../article";
   template: `
     <div class="nav-content">
       <h2 *ngIf="(userArticles | async)?.length == 0" style="text-align: center">Aucun article sélectionné.</h2>
-      <ng-container *ngFor="let article of userArticles | async">
-        <mat-card class="card" tabindex="0">
+      <ng-container *ngFor="let article of userArticles | async; odd as isOdd; first as isFirst">
+        <mat-card [ngClass]="isOdd ? 'card card-odd' : isFirst ? 'card' : 'card card-even'">
           <mat-card-header>
             <mat-icon mat-card-avatar>{{article.category}}</mat-icon>
             <mat-card-title>{{article.name}}</mat-card-title>
