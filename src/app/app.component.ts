@@ -1,8 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {AmenitiesService} from "./amenities.service";
 import {EditorComponent} from "./editor/editor.component";
-import {ArticlesComponent} from "./articles/articles.component";
-import {RouterOutlet} from "@angular/router";
 import {Article} from "./article";
 
 @Component({
@@ -16,6 +14,7 @@ export class AppComponent implements OnInit {
   signedIn = false;
   user = null;
   public userArticlesCount: number;
+  private listName: String;
 
   constructor(public amenitiesService: AmenitiesService) {
   }
@@ -29,7 +28,12 @@ export class AppComponent implements OnInit {
 
         this.amenitiesService.getArticlesForCurrentUser()
           .subscribe(articles => this.userArticlesCount = articles.length);
+
+        this.amenitiesService.listName()
+          .subscribe(listName => this.listName = listName);
       });
+
+
   }
 
   computeLock(): string {
@@ -39,7 +43,7 @@ export class AppComponent implements OnInit {
   signInOrOut(): void {
     if (!this.signedIn) {
       this.amenitiesService.login();
-    }else {
+    } else {
       this.signOut()
     }
   }

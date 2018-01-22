@@ -5,6 +5,7 @@ import {AngularFireAuth} from "angularfire2/auth";
 import * as firebase from "firebase";
 import {User} from "firebase";
 import {Article} from "./article";
+import 'rxjs/add/operator/take'
 
 const ARTICLE_PATH = '/articles';
 const USERS_PATH = '/users/';
@@ -15,6 +16,7 @@ export class AmenitiesService {
   private articlesRef: AngularFireList<Article>;
   private articles: Observable<Article[]>;
   private userArticlesRef: AngularFireList<Article>;
+  private listNames: Observable<String>;
 
   constructor(private database: AngularFireDatabase, private afAuth: AngularFireAuth) {
     this.articlesRef = this.database.list<Article>(ARTICLE_PATH);
@@ -26,6 +28,12 @@ export class AmenitiesService {
     this.authenticationState().subscribe(user => {
       if (user) {
         this.userArticlesRef = this.database.list<Article>(USERS_PATH + user.uid);
+
+        this.listNames = this.database.list<String>('userToList',
+          ref => ref.orderByKey().equalTo(user.uid))
+          .valueChanges()
+          //.take(1)
+          .map(changes => changes[0]);
       }
     });
   }
@@ -65,6 +73,10 @@ export class AmenitiesService {
       .map(changes => changes
         .map(c => new Article(c.payload.key, c.payload.val()))
         .filter(article => article.isNotBought()));
+  }
+
+  listName(): Observable<String> {
+    return this.listNames;
   }
 
   articleBought(article: Article) {
