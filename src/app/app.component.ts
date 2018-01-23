@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
   signedIn = false;
   user = null;
   public userArticlesCount: number;
-  private listName: String;
+  public listName: String;
 
   constructor(public amenitiesService: AmenitiesService) {
   }
