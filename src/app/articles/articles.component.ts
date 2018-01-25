@@ -16,7 +16,9 @@ export class ArticlesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.articles = this.amenitiesService.getArticles();
+    this.amenitiesService.listName()
+      .subscribe(listName =>
+        this.articles = this.amenitiesService.getArticles((<string>listName)));
   }
 
   addToCart(article: Article) {

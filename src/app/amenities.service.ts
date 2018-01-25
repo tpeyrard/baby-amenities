@@ -15,32 +15,31 @@ const USER_TO_LIST = '/userToList/';
 export class AmenitiesService {
 
   private articlesRef: AngularFireList<Article>;
-  private articles: Observable<Article[]>;
   private userArticlesRef: AngularFireList<Article>;
-  private _listName: Observable<String>;
+  private listNames: Observable<string[]>;
 
   constructor(private database: AngularFireDatabase, private afAuth: AngularFireAuth) {
     this.articlesRef = this.database.list<Article>(ARTICLE_PATH);
-    this.articles = this.articlesRef.snapshotChanges()
-      .map(changes => {
-        return changes.map(c => new Article(c.payload.key, c.payload.val()))
-          .filter(article => article.isAvailable());
-      });
+
     this.authenticationState().subscribe(user => {
       if (user) {
         this.userArticlesRef = this.database.list<Article>(USERS_PATH + user.uid);
 
-        this._listName = this.database.list<String>(USER_TO_LIST,
+        this.listNames = this.database.list<string>(USER_TO_LIST,
           ref => ref.orderByKey().equalTo(user.uid))
-          .valueChanges()
-          .take(1)
-          .map(changes => changes[0]);
+          .valueChanges();
       }
     });
   }
 
-  getArticles(): Observable<Article[]> {
-    return this.articles;
+  getArticles(listName: string): Observable<Article[]> {
+    if (listName) {
+      return this.database.list<Article>(ARTICLE_PATH + listName).snapshotChanges()
+        .map(changes => {
+          return changes.map(c => new Article(c.payload.key, c.payload.val()))
+            .filter(article => article.isAvailable());
+        });
+    }
   }
 
   login() {
@@ -76,10 +75,6 @@ export class AmenitiesService {
         .filter(article => article.isNotBought()));
   }
 
-  listName(): Observable<String> {
-    return this._listName;
-  }
-
   articleBought(article: Article) {
     const purchasedArticle = article.purchase();
     const key = purchasedArticle.key;
@@ -94,5 +89,11 @@ export class AmenitiesService {
 
     this.userArticlesRef.remove(key);
     this.articlesRef.update(key, article);
+  }
+
+  listName(): Observable<String> {
+    return this.listNames
+      .take(1)
+      .map(changes => changes[0]);
   }
 }
