@@ -66,7 +66,7 @@
         "name": "Bonnet",
         "purchased": false,
         "size": "18 mois",
-        "taken": true,
+        "taken": false,
         "value": "De la marque"
       },
       "2": {
@@ -75,9 +75,9 @@
         "image": "https://www.centraledesmultiples.com/img_product/c/h/400/ch061258860.jpg",
         "key": "2",
         "name": "Tétines",
-        "purchased": true,
+        "purchased": false,
         "size": "36 mois",
-        "taken": true,
+        "taken": false,
         "value": "Premier prix"
       },
       "3": {
@@ -99,7 +99,7 @@
         "name": "Levis Jean",
         "purchased": false,
         "size": "24 mois",
-        "taken": true,
+        "taken": false,
         "value": "Pour trainer à la maison"
       },
       "-L1dLQWaQ_C3evSnHUDy": {
@@ -110,7 +110,7 @@
         "name": "Chaussure",
         "purchased": false,
         "size": "24",
-        "taken": true,
+        "taken": false,
         "value": "30-40€"
       }
     }
