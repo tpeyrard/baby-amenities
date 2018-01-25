@@ -35,12 +35,20 @@ import {Article, CAT_TO_IMAGE} from "../article";
 })
 export class AccountComponent implements OnInit {
   public userArticles: Observable<Article[]>;
+  private listName: string;
 
   constructor(private amenitiesService: AmenitiesService) {
   }
 
   ngOnInit() {
-    this.userArticles = this.amenitiesService.getArticlesForCurrentUser();
+    this.amenitiesService.listName()
+      .subscribe(listName => {
+        if (listName) {
+          this.listName = (<string>listName);
+          this.userArticles = this.amenitiesService.getArticlesForCurrentUser(this.listName);
+        }
+      });
+
   }
 
   confirmPurchase(article: Article) {

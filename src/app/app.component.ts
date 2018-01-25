@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
   signedIn = false;
   user = null;
   public userArticlesCount: number;
-  public listName: String;
+  public listName: string;
 
   constructor(public amenitiesService: AmenitiesService) {
   }
@@ -26,11 +26,16 @@ export class AppComponent implements OnInit {
         this.user = user;
         this.signedIn = (user != null)
 
-        this.amenitiesService.getArticlesForCurrentUser()
-          .subscribe(articles => this.userArticlesCount = articles.length);
-
         this.amenitiesService.listName()
-          .subscribe(listName => this.listName = listName);
+          .subscribe(listName => {
+            if (listName) {
+              this.listName = (<string>listName);
+
+              this.amenitiesService.getArticlesForCurrentUser(this.listName)
+                .subscribe(articles => this.userArticlesCount = articles.length)
+            }
+          });
+
       });
 
 

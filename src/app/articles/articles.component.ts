@@ -11,18 +11,25 @@ import {Article, CAT_TO_IMAGE} from "../article";
 export class ArticlesComponent implements OnInit {
 
   public articles: Observable<Article[]>;
+  private listName: string;
 
   constructor(private amenitiesService: AmenitiesService) {
   }
 
   ngOnInit() {
     this.amenitiesService.listName()
-      .subscribe(listName =>
-        this.articles = this.amenitiesService.getArticles((<string>listName)));
+      .subscribe(listName => {
+        if (listName) {
+          this.listName = (<string>listName);
+          this.articles = this.amenitiesService.getArticles(this.listName);
+        }
+      });
   }
 
   addToCart(article: Article) {
-    this.amenitiesService.moveToUserCart(article);
+    if (this.listName) {
+      this.amenitiesService.moveToUserCart(this.listName, article);
+    }
   }
 
   removeArticle(id: string) {

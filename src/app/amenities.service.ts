@@ -16,18 +16,18 @@ export class AmenitiesService {
 
   private articlesRef: AngularFireList<Article>;
   private userArticlesRef: AngularFireList<Article>;
-  private listNames: Observable<string[]>;
+  private listNames: AngularFireList<string>;
+  private user: firebase.User;
 
   constructor(private database: AngularFireDatabase, private afAuth: AngularFireAuth) {
     this.articlesRef = this.database.list<Article>(ARTICLE_PATH);
 
     this.authenticationState().subscribe(user => {
       if (user) {
-        this.userArticlesRef = this.database.list<Article>(USERS_PATH + user.uid);
+        this.user = user;
+        this.userArticlesRef = this.database.list<Article>(USERS_PATH + user.uid); //TODO remove there
 
-        this.listNames = this.database.list<string>(USER_TO_LIST,
-          ref => ref.orderByKey().equalTo(user.uid))
-          .valueChanges();
+        this.listNames = this.database.list<string>(USER_TO_LIST + user.uid);
       }
     });
   }
@@ -58,21 +58,32 @@ export class AmenitiesService {
     this.articlesRef.push(article);
   }
 
-  moveToUserCart(article: Article) {
-    this.articlesRef.update(article.key, article.take());
+  moveToUserCart(listName: string, article: Article) {
+    if (this.user && listName) {
+      console.log('listName=' + listName);
+      this.database.list<Article>(ARTICLE_PATH + listName).update(article.key, article.take());
 
-    this.userArticlesRef.set(article.key, article);
+      this.userArticlesDatabase(listName).set(article.key, article);
+    }
+  }
+
+  private userArticlesDatabase(listName: string) {
+    if (this.user) {
+      return this.database.list<Article>(USERS_PATH + listName + "/" + this.user.uid);
+    }
   }
 
   remove(id: string) {
     this.articlesRef.remove(id);
   }
 
-  getArticlesForCurrentUser(): Observable<Article[]> {
-    return this.userArticlesRef.snapshotChanges()
-      .map(changes => changes
-        .map(c => new Article(c.payload.key, c.payload.val()))
-        .filter(article => article.isNotBought()));
+  getArticlesForCurrentUser(listName: string): Observable<Article[]> {
+    if (listName) {
+      return this.userArticlesDatabase(listName).snapshotChanges()
+        .map(changes => changes
+          .map(c => new Article(c.payload.key, c.payload.val()))
+          .filter(article => article.isNotBought()));
+    }
   }
 
   articleBought(article: Article) {
@@ -92,8 +103,8 @@ export class AmenitiesService {
   }
 
   listName(): Observable<String> {
-    return this.listNames
+    return this.listNames.snapshotChanges()
       .take(1)
-      .map(changes => changes[0]);
+      .map(changes => changes[0].key);
   }
 }

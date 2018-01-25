@@ -124,8 +124,13 @@
     }
   },
   "userToList": {
-    "M61Zy68yIVPEvO4A9kA0YJIhktL2": "Maxou",
-    "GFn3lS0yzvaMiSga5zQuwSftULu1": "Juniora"
+    "M61Zy68yIVPEvO4A9kA0YJIhktL2": {
+      "Maxou": "primary"
+    },
+    "GFn3lS0yzvaMiSga5zQuwSftULu1": {
+      "Juniora": "primary",
+      "Maxou" : "secondary"
+    }
   },
   "users": {
     "Maxou": {
