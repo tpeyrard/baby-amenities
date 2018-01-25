@@ -4,7 +4,7 @@
       <mat-icon>home</mat-icon>
     </button>
     <span class="spacer"></span>
-    <p>List name: {{listName}}</p>
+    <p style="font-size: small">List: {{listName}} - </p>
     <p *ngIf="user" id="userName">{{ user.displayName }}</p>
     <nav>
       <button mat-icon-button routerLink="/account" fxShow="{{signedIn}}">

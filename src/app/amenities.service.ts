@@ -7,8 +7,9 @@ import {User} from "firebase";
 import {Article} from "./article";
 import 'rxjs/add/operator/take'
 
-const ARTICLE_PATH = '/articles';
+const ARTICLE_PATH = '/articles/';
 const USERS_PATH = '/users/';
+const USER_TO_LIST = '/userToList/';
 
 @Injectable()
 export class AmenitiesService {
@@ -16,7 +17,7 @@ export class AmenitiesService {
   private articlesRef: AngularFireList<Article>;
   private articles: Observable<Article[]>;
   private userArticlesRef: AngularFireList<Article>;
-  private listNames: Observable<String>;
+  private _listName: Observable<String>;
 
   constructor(private database: AngularFireDatabase, private afAuth: AngularFireAuth) {
     this.articlesRef = this.database.list<Article>(ARTICLE_PATH);
@@ -29,10 +30,10 @@ export class AmenitiesService {
       if (user) {
         this.userArticlesRef = this.database.list<Article>(USERS_PATH + user.uid);
 
-        this.listNames = this.database.list<String>('userToList',
+        this._listName = this.database.list<String>(USER_TO_LIST,
           ref => ref.orderByKey().equalTo(user.uid))
           .valueChanges()
-          //.take(1)
+          .take(1)
           .map(changes => changes[0]);
       }
     });
@@ -76,7 +77,7 @@ export class AmenitiesService {
   }
 
   listName(): Observable<String> {
-    return this.listNames;
+    return this._listName;
   }
 
   articleBought(article: Article) {
