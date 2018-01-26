@@ -15,8 +15,7 @@
         ".read": "data.child(auth.uid).exists()",
         ".validate": "root.child('list_names/'+$list_id).exists()",
         "$user_id": {
-          ".write": "auth != null && auth.uid === $user_id",
-          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length < 20"
+          ".write": "auth != null && auth.uid === $user_id"
         }
       }
     },

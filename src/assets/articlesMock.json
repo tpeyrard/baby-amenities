@@ -134,11 +134,20 @@
   },
   "users": {
     "Maxou": {
-      "M61Zy68yIVPEvO4A9kA0YJIhktL2": "",
-      "GFn3lS0yzvaMiSga5zQuwSftULu1": ""
+      "M61Zy68yIVPEvO4A9kA0YJIhktL2": {
+        "articles": "",
+        "present": true
+      },
+      "GFn3lS0yzvaMiSga5zQuwSftULu1": {
+        "articles": "",
+        "present": true
+      }
     },
     "Juniora": {
-      "GFn3lS0yzvaMiSga5zQuwSftULu1": ""
+      "GFn3lS0yzvaMiSga5zQuwSftULu1": {
+        "articles": "",
+        "present": true
+      }
     }
   }
 }
