@@ -125,27 +125,33 @@
   },
   "userToList": {
     "M61Zy68yIVPEvO4A9kA0YJIhktL2": {
-      "Maxou": "primary"
+      "Maxou": {
+        "type": "primary",
+        "articles": ""
+      }
     },
     "GFn3lS0yzvaMiSga5zQuwSftULu1": {
-      "Juniora": "primary",
-      "Maxou" : "secondary"
+      "Juniora": {
+        "type": "primary",
+        "articles": ""
+      },
+      "Maxou" : {
+        "type": "secondary",
+        "articles": ""
+      }
     }
   },
   "users": {
     "Maxou": {
       "M61Zy68yIVPEvO4A9kA0YJIhktL2": {
-        "articles": "",
         "present": true
       },
       "GFn3lS0yzvaMiSga5zQuwSftULu1": {
-        "articles": "",
         "present": true
       }
     },
     "Juniora": {
       "GFn3lS0yzvaMiSga5zQuwSftULu1": {
-        "articles": "",
         "present": true
       }
     }

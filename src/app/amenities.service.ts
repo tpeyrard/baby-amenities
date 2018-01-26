@@ -109,7 +109,7 @@ export class AmenitiesService {
 
   private userArticlesDatabase(listName: string) {
     if (this.user) {
-      return this.database.list<Article>(USERS_PATH + listName + "/" + this.user.uid + "/articles/");
+      return this.database.list<Article>(USER_TO_LIST + this.user.uid + "/" + listName + "/articles/");
     }
     console.log('Cannot access user database because user is undefined');
   }
