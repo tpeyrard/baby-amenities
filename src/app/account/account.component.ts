@@ -52,11 +52,11 @@ export class AccountComponent implements OnInit {
   }
 
   confirmPurchase(article: Article) {
-    this.amenitiesService.articleBought(article);
+    this.amenitiesService.articleBought(article, this.listName);
   }
 
   cancel(article: Article) {
-    this.amenitiesService.release(article);
+    this.amenitiesService.release(article, this.listName);
   }
 
   getImage(article: Article): string {
