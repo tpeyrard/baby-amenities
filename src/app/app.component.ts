@@ -66,7 +66,7 @@ export class AppComponent implements OnInit {
   }
 
   persist(article: Article) {
-    this.amenitiesService.add(article);
+    this.amenitiesService.add(article, this.listName);
   }
 }
 

@@ -25,7 +25,7 @@
         ".validate": "root.child('list_names/'+$list_id).exists()",
         "$article_id": {
           ".write": "root.child('users/'+$list_id+'/'+auth.uid).exists() && root.child('list_names/'+$list_id+'/admin').val() === auth.uid",
-          ".validate": "newData.hasChildren(['category', 'desc', 'image','key','name','size','value','taken', 'purchased'])",
+          ".validate": "newData.hasChildren(['name'])",
           "taken": {
             ".write": "root.child('users/'+$list_id+'/'+auth.uid).exists()",
             ".validate": "newData.val() === false || newData.val() === true"

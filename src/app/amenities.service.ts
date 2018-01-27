@@ -45,8 +45,8 @@ export class AmenitiesService {
     return this.afAuth.authState;
   }
 
-  add(article: Article) {
-    this.articleOfListRef('CHANGE_ME').push(article); // TODO fix me
+  add(article: Article, listName: string) {
+    this.articleOfListRef(listName).push(article);
   }
 
   moveToUserCart(listName: string, article: Article) {
@@ -111,11 +111,14 @@ export class AmenitiesService {
     if (this.user) {
       return this.database.list<Article>(USER_TO_LIST + this.user.uid + "/" + listName + "/articles/");
     }
-    console.log('Cannot access user database because user is undefined');
+    console.log('Cannot access user database because user is undefined or null');
   }
 
   private articleOfListRef(listName: string) {
-    return this.database.list<Article>(ARTICLE_PATH + listName);
+    if (listName) {
+      return this.database.list<Article>(ARTICLE_PATH + listName);
+    }
+    console.log('Cannot access list of articles listName is undefined or null');
   }
 
 }
