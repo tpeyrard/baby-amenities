@@ -15,6 +15,7 @@ export class AppComponent implements OnInit {
   user = null;
   public userArticlesCount: number;
   public listName: string;
+  public selectedList: string;
 
   constructor(public amenitiesService: AmenitiesService) {
   }
@@ -24,14 +25,16 @@ export class AppComponent implements OnInit {
       .authenticationState()
       .subscribe(user => {
         this.user = user;
-        this.signedIn = (user != null)
+        this.signedIn = (user != null);
 
         this.amenitiesService.listName()
           .subscribe(listName => {
             if (listName) {
               this.listName = (<string>listName);
 
-              this.amenitiesService.getArticlesForCurrentUser(this.listName)
+              this.selectedList = this.listName;
+
+              this.amenitiesService.getArticlesForCurrentUser(this.selectedList)
                 .subscribe(articles => this.userArticlesCount = articles.length)
             }
           });
@@ -66,7 +69,7 @@ export class AppComponent implements OnInit {
   }
 
   persist(article: Article) {
-    this.amenitiesService.add(article, this.listName);
+    this.amenitiesService.add(article, this.selectedList);
   }
 }
 
