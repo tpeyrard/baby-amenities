@@ -49,16 +49,16 @@ export class AmenitiesService {
     this.articleOfListRef(listName).push(article);
   }
 
+  remove(listName: string, id: string) {
+    this.articleOfListRef(listName).remove(id);
+  }
+
   moveToUserCart(listName: string, article: Article) {
     if (this.user && listName) {
       this.database.list<Article>(ARTICLE_PATH + listName).update(article.key, article.take());
 
       this.userArticlesDatabase(listName).set(article.key, article);
     }
-  }
-
-  remove(id: string) {
-    this.articleOfListRef('CHANGE_ME').remove(id); //TODO fix me
   }
 
   getArticlesForCurrentUser(listName: string): Observable<Article[]> {

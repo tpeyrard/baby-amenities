@@ -33,7 +33,9 @@ export class ArticlesComponent implements OnInit {
   }
 
   removeArticle(id: string) {
-    this.amenitiesService.remove(id);
+    if (this.listName) {
+      this.amenitiesService.remove(this.listName, id);
+    }
   }
 
   getImage(article: Article): string {
