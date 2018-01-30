@@ -6,6 +6,7 @@ import * as firebase from "firebase";
 import {User} from "firebase";
 import {Article} from "./article";
 import 'rxjs/add/operator/take'
+import DataSnapshot = firebase.database.DataSnapshot;
 
 const ARTICLE_PATH = '/articles/';
 const USERS_PATH = '/users/';
@@ -108,10 +109,8 @@ export class AmenitiesService {
       });
   }
 
-  listNames(): Observable<String[]> {
-    return this._listNames.snapshotChanges()
-      .take(1)
-      .map(changes => changes.map(c => c.key));
+  listNames(): Observable<any[]> {
+    return this._listNames.snapshotChanges();
   }
 
   private articlesOfList(listName: string): Observable<Article[]> {

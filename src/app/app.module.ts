@@ -7,7 +7,11 @@ import {environment} from '../environments/environment';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
-  MatButtonModule, MatCardModule, MatDialogModule, MatFormFieldModule, MatIconModule, MatInputModule, MatListModule, MatOptionModule, MatSelectModule, MatSidenavModule,
+  MatButtonModule, MatButtonToggleModule, MatCardModule, MatChipsModule, MatDialogModule, MatFormFieldModule, MatIconModule, MatInputModule, MatListModule, MatOptionModule,
+  MatRadioButton,
+  MatRadioModule,
+  MatSelectModule,
+  MatSidenavModule,
   MatToolbarModule
 } from '@angular/material';
 import {NgSelectModule} from '@ng-select/ng-select';
@@ -19,8 +23,9 @@ import {AccountComponent} from './account/account.component';
 import {ArticlesComponent} from './articles/articles.component';
 import {AmenitiesService} from './amenities.service';
 import {DialogOverview, EditorComponent} from './editor/editor.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MediaMatcher} from "@angular/cdk/layout";
+import {HomeComponent} from './home/home.component';
 
 
 @NgModule({
@@ -29,7 +34,8 @@ import {MediaMatcher} from "@angular/cdk/layout";
     AccountComponent,
     ArticlesComponent,
     EditorComponent,
-    DialogOverview
+    DialogOverview,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -48,6 +54,9 @@ import {MediaMatcher} from "@angular/cdk/layout";
     MatDialogModule,
     MatFormFieldModule,
     FormsModule,
+    ReactiveFormsModule,
+    MatRadioModule,
+    MatButtonToggleModule,
     MatOptionModule,
     MatInputModule,
     MatSelectModule,

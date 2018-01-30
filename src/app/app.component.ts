@@ -34,11 +34,13 @@ export class AppComponent implements OnInit {
               this.selectedList = listName;
 
               this.amenitiesService.getArticlesForCurrentUser(this.selectedList)
-                .subscribe(articles => this.userArticlesCount = articles.length)
+                .subscribe(articles => this.userArticlesCount = articles.length);
             }
           });
 
-        this.listNames = this.amenitiesService.listNames();
+        this.listNames = this.amenitiesService.listNames()
+          .take(1)
+          .map(changes => changes.map(c => c.key));
 
       });
 
