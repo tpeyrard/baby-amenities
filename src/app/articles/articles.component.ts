@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AmenitiesService} from "../amenities.service";
 import {Observable} from "rxjs/Observable";
 import {Article, CAT_TO_IMAGE} from "../article";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Params} from "@angular/router";
 
 @Component({
   selector: 'app-articles',

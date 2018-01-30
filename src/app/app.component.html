@@ -3,16 +3,12 @@
     <button mat-icon-button routerLink="/list/{{selectedList}}">
       <mat-icon>home</mat-icon>
     </button>
-    <p style="font-size: medium; margin-left: 8px">
-      <mat-form-field >
-        <mat-select [(ngModel)]="selectedList">
-          <mat-option *ngFor="let list of listNames" [value]="list">
-            {{list}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+    <p style="font-size: medium; margin-left: 8px; min-width: 150px">
+      <ng-select [items]="listNames | async"
+                 [(ngModel)]="selectedList">
+      </ng-select>
     </p>
-    <span class="spacer"></span>
+    <span class="spacer"></span>ng-selec
     <p *ngIf="user" id="userName">{{ user.displayName }}</p>
     <nav>
       <button mat-icon-button routerLink="/account" fxShow="{{signedIn}}">

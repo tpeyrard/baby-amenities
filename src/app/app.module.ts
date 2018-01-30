@@ -10,6 +10,7 @@ import {
   MatButtonModule, MatCardModule, MatDialogModule, MatFormFieldModule, MatIconModule, MatInputModule, MatListModule, MatOptionModule, MatSelectModule, MatSidenavModule,
   MatToolbarModule
 } from '@angular/material';
+import {NgSelectModule} from '@ng-select/ng-select';
 import {FlexLayoutModule} from "@angular/flex-layout";
 
 import {AppComponent} from './app.component';
@@ -48,8 +49,9 @@ import {MediaMatcher} from "@angular/cdk/layout";
     MatFormFieldModule,
     FormsModule,
     MatOptionModule,
+    MatInputModule,
     MatSelectModule,
-    MatInputModule
+    NgSelectModule
   ],
   entryComponents: [DialogOverview],
   providers: [AmenitiesService, MediaMatcher],

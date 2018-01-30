@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {AmenitiesService} from "./amenities.service";
 import {EditorComponent} from "./editor/editor.component";
 import {Article} from "./article";
+import {Observable} from "rxjs/Observable";
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,7 @@ export class AppComponent implements OnInit {
   signedIn = false;
   user = null;
   public userArticlesCount: number;
-  public listNames: string[];
+  public listNames: Observable<String[]>;
   public selectedList: string;
 
   constructor(public amenitiesService: AmenitiesService) {
@@ -28,21 +29,16 @@ export class AppComponent implements OnInit {
         this.signedIn = (user != null);
 
         this.amenitiesService.listName()
-          .subscribe(listName => {
+          .subscribe((listName: string) => {
             if (listName) {
-              this.selectedList = (<string>listName);
+              this.selectedList = listName;
 
               this.amenitiesService.getArticlesForCurrentUser(this.selectedList)
                 .subscribe(articles => this.userArticlesCount = articles.length)
             }
           });
 
-        this.amenitiesService.listNames()
-          .subscribe(listNames => {
-            if (listNames) {
-              this.listNames = (<string[]>listNames);
-            }
-          });
+        this.listNames = this.amenitiesService.listNames();
 
       });
 
