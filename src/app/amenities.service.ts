@@ -14,7 +14,7 @@ const USER_TO_LIST = '/userToList/';
 @Injectable()
 export class AmenitiesService {
 
-  private listNames: AngularFireList<string>;
+  private _listNames: AngularFireList<string>;
   private user: firebase.User;
 
   constructor(private database: AngularFireDatabase, private afAuth: AngularFireAuth) {
@@ -22,7 +22,7 @@ export class AmenitiesService {
     this.authenticationState().subscribe(user => {
       if (user) {
         this.user = user;
-        this.listNames = this.database.list<string>(USER_TO_LIST + user.uid);
+        this._listNames = this.database.list<string>(USER_TO_LIST + user.uid);
       }
     });
   }
@@ -94,9 +94,24 @@ export class AmenitiesService {
   }
 
   listName(): Observable<String> {
-    return this.listNames.snapshotChanges()
+    return this._listNames.snapshotChanges()
       .take(1)
-      .map(changes => changes[0].key);
+      .map(changes => changes
+        .find(c => {
+          return c.payload.val().type === 'primary';
+        }))
+      .map(primaryList => {
+        if (primaryList) {
+          return primaryList.key;
+        }
+        console.log('No primary list defined for current user.')
+      });
+  }
+
+  listNames(): Observable<String[]> {
+    return this._listNames.snapshotChanges()
+      .take(1)
+      .map(changes => changes.map(c => c.key));
   }
 
   private articlesOfList(listName: string): Observable<Article[]> {

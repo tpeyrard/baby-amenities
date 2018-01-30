@@ -4,7 +4,7 @@ import {ArticlesComponent} from "./articles/articles.component";
 import {AccountComponent} from "./account/account.component";
 
 const routes: Routes = [
-  {path: '', component: ArticlesComponent},
+  {path: 'list/:listName', component: ArticlesComponent},
   {path: 'account', component: AccountComponent}
 ];
 

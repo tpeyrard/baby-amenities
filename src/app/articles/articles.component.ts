@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AmenitiesService} from "../amenities.service";
 import {Observable} from "rxjs/Observable";
 import {Article, CAT_TO_IMAGE} from "../article";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-articles',
@@ -11,30 +12,27 @@ import {Article, CAT_TO_IMAGE} from "../article";
 export class ArticlesComponent implements OnInit {
 
   public articles: Observable<Article[]>;
-  private listName: string;
+  private selectedList: string;
 
-  constructor(private amenitiesService: AmenitiesService) {
+  constructor(private amenitiesService: AmenitiesService, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
-    this.amenitiesService.listName()
-      .subscribe(listName => {
-        if (listName) {
-          this.listName = (<string>listName);
-          this.articles = this.amenitiesService.getArticles(this.listName);
-        }
-      });
+    this.route.params.subscribe(params => {
+      this.selectedList = params['listName'];
+      this.articles = this.amenitiesService.getArticles(this.selectedList);
+    });
   }
 
   addToCart(article: Article) {
-    if (this.listName) {
-      this.amenitiesService.moveToUserCart(this.listName, article);
+    if (this.selectedList) {
+      this.amenitiesService.moveToUserCart(this.selectedList, article);
     }
   }
 
   removeArticle(id: string) {
-    if (this.listName) {
-      this.amenitiesService.remove(this.listName, id);
+    if (this.selectedList) {
+      this.amenitiesService.remove(this.selectedList, id);
     }
   }
 
