@@ -15,6 +15,7 @@ export class AppComponent implements OnInit {
 
   signedIn = false;
   user = null;
+  public sideNavToggle: boolean;
   public userArticlesCount: number;
   public listNames: Observable<String[]>;
   public selectedList: string;
@@ -78,6 +79,10 @@ export class AppComponent implements OnInit {
 
   navigateToList(event) {
     this.router.navigate(['/list', event.target.innerText]);
+  }
+
+  toggleSidenav(): void {
+    this.sideNavToggle = !this.sideNavToggle;
   }
 }
 

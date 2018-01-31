@@ -1,4 +1,4 @@
-<div class="nav-content">
+<mat-sidenav-content class="nav-content">
   <h2 *ngIf="(articles | async)?.length == 0" style="text-align: center">Cette liste est vide pour le moment.</h2>
   <ng-container *ngFor="let article of articles | async; odd as isOdd; first as isFirst">
     <mat-card [ngClass]="isOdd ? 'card card-odd' : isFirst ? 'card' : 'card card-even'">
@@ -20,4 +20,4 @@
     </mat-card>
 
   </ng-container>
-</div>
+</mat-sidenav-content>

@@ -7,7 +7,7 @@ import {FormControl, Validators} from '@angular/forms';
 @Component({
   selector: 'app-home',
   template: `
-    <div class="nav-content" style="display: block; padding: 20px 200px 40px 200px;">
+    <mat-sidenav-content class="nav-bloc-content" style="display: block; padding: 20px 200px 40px 200px;">
       <h2>Vos listes</h2>
       <mat-button-toggle-group [(ngModel)]="selectedList">
         <mat-button-toggle *ngFor="let list of listNames | async" [value]="list.name" style="padding: 0 4px;">
@@ -35,7 +35,7 @@ import {FormControl, Validators} from '@angular/forms';
         <input matInput placeholder="Entrez le nom de la liste" required>
       </mat-form-field>
       <button mat-button color="primary" disabled>Créer la liste</button>
-    </div>
+    </mat-sidenav-content>
   `,
   styles: []
 })

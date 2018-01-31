@@ -6,7 +6,7 @@ import {Article, CAT_TO_IMAGE} from "../article";
 @Component({
   selector: 'app-account',
   template: `
-    <div class="nav-content">
+    <mat-sidenav-content class="nav-content">
       <h2 *ngIf="(userArticles | async)?.length == 0" style="text-align: center">Aucun article sélectionné.</h2>
       <ng-container *ngFor="let article of userArticles | async; odd as isOdd; first as isFirst">
         <mat-card [ngClass]="isOdd ? 'card card-odd' : isFirst ? 'card' : 'card card-even'">
@@ -28,7 +28,7 @@ import {Article, CAT_TO_IMAGE} from "../article";
         </mat-card>
 
       </ng-container>
-    </div>
+    </mat-sidenav-content>
   `,
   styles: [
       ``]

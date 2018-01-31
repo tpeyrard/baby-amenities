@@ -1,9 +1,15 @@
+:host {
+  height: calc(100% - 64px);
+  display: flex;
+  min-height: calc(100% - 64px);
+}
+
 .header {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1;
+  z-index: 10;
 }
 
 #title {
@@ -27,6 +33,7 @@ nav a {
   margin-top: 10px;
   display: inline-block;
 }
+
 nav a:visited, a:link {
   color: #607D8B;
 }
@@ -35,6 +42,7 @@ nav a:hover {
   color: #039be5;
   background-color: #CFD8DC;
 }
+
 nav a.active {
   color: #039be5;
 }
