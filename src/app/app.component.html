@@ -1,24 +1,30 @@
 <mat-toolbar color="primary" class="header">
   <mat-toolbar-row>
-    <button mat-icon-button routerLink="/list/{{selectedList}}">
+    <button mat-icon-button routerLink="/">
       <mat-icon>home</mat-icon>
     </button>
-    <p style="font-size: medium; margin-left: 8px; min-width: 150px">
-      <ng-select [items]="listNames | async"
-                 [clearable]="false"
-                 [(ngModel)]="selectedList">
-      </ng-select>
+    <p style="font-size: medium; margin-left: 8px; min-width: 150px; padding-top: 10px">
+      <mat-button-toggle-group [(ngModel)]="selectedList">
+        <mat-button-toggle *ngFor="let list of listNames | async"
+                           [value]="list"
+                           style="padding: 0 4px;"
+                           (click)="navigateToList($event)">
+          {{list}}
+        </mat-button-toggle>
+      </mat-button-toggle-group>
     </p>
     <span class="spacer"></span>
     <p *ngIf="user" id="userName">{{ user.displayName }}</p>
     <nav>
-      <button mat-icon-button routerLink="/account" fxShow="{{signedIn}}">
+      <button mat-icon-button routerLink="/cart" fxShow="{{signedIn}}">
         <ng-container *ngIf="0 < userArticlesCount; else withoutBadge">
           <mat-icon aria-hidden="true" class="mdl-badge mdl-badge--overlap" [attr.data-badge]="userArticlesCount">
-            account_circle
+            shopping_basket
           </mat-icon>
         </ng-container>
-        <ng-template #withoutBadge><mat-icon aria-hidden="true">account_circle</mat-icon></ng-template>
+        <ng-template #withoutBadge>
+          <mat-icon aria-hidden="true">shopping_basket</mat-icon>
+        </ng-template>
       </button>
       <button mat-icon-button (click)="signInOrOut()">
         <mat-icon aria-hidden="true">{{computeLock()}}</mat-icon>

@@ -3,6 +3,7 @@ import {AmenitiesService} from "./amenities.service";
 import {EditorComponent} from "./editor/editor.component";
 import {Article} from "./article";
 import {Observable} from "rxjs/Observable";
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,7 @@ export class AppComponent implements OnInit {
   public listNames: Observable<String[]>;
   public selectedList: string;
 
-  constructor(public amenitiesService: AmenitiesService) {
+  constructor(public amenitiesService: AmenitiesService, private router: Router) {
   }
 
   ngOnInit() {
@@ -73,6 +74,10 @@ export class AppComponent implements OnInit {
 
   persist(article: Article) {
     this.amenitiesService.add(article, this.selectedList);
+  }
+
+  navigateToList(event) {
+    this.router.navigate(['/list', event.target.innerText]);
   }
 }
 
