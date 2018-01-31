@@ -6,7 +6,6 @@ import * as firebase from "firebase";
 import {User} from "firebase";
 import {Article} from "./article";
 import 'rxjs/add/operator/take'
-import DataSnapshot = firebase.database.DataSnapshot;
 
 const ARTICLE_PATH = '/articles/';
 const USERS_PATH = '/users/';
