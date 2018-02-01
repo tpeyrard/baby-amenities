@@ -76,3 +76,12 @@ nav a.active {
   right: 1.5em;
   z-index: 100;
 }
+
+.sidenav-content {
+  padding-bottom: 8px;
+}
+
+.sidenav-content h3{
+  color: #1A237E;
+  font-weight: 400;
+}

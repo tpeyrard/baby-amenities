@@ -8,15 +8,16 @@ import {FormControl, Validators} from '@angular/forms';
   selector: 'app-home',
   template: `
     <mat-sidenav-content class="nav-bloc-content" style="display: block; padding: 20px 200px 40px 200px;">
-      <h2>Vos listes</h2>
+      <h1 class="mat-headline">Configuration</h1>
+      <h2 class="mat-title">Vos listes</h2>
       <mat-button-toggle-group [(ngModel)]="selectedList">
         <mat-button-toggle *ngFor="let list of listNames | async" [value]="list.name" style="padding: 0 4px;">
           {{list.name}}
         </mat-button-toggle>
       </mat-button-toggle-group>
-      <p>{{selectedList}}{{selectedList ? " est votre liste principale" : "Vous n'avez pas de liste principale"}}</p>
+      <p class="mat-caption">{{selectedList}}{{selectedList ? " est votre liste principale" : "Vous n'avez pas de liste principale"}}</p>
 
-      <h2>Inviter quelqu'un à rejoindre votre liste</h2>
+      <h2 class="mat-title">Inviter quelqu'un à rejoindre votre liste</h2>
       <ng-select [items]="listNames | async"
                  bindLabel="name"
                  placeholder="Sélectionnez une liste"
@@ -30,7 +31,7 @@ import {FormControl, Validators} from '@angular/forms';
         <button mat-button color="primary" disabled>Envoyer l'invitation</button>
       </p>
 
-      <h2>Créer une liste</h2>
+      <h2 class="mat-title">Créer une liste</h2>
       <mat-form-field style="width: 350px">
         <input matInput placeholder="Entrez le nom de la liste" required>
       </mat-form-field>

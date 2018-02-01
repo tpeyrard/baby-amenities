@@ -3,7 +3,7 @@
     <button mat-icon-button (click)="toggleSidenav()">
       <mat-icon>menu</mat-icon>
     </button>
-    <button mat-icon-button routerLink="/">
+    <button mat-icon-button routerLink="/list/{{selectedList}}">
       <mat-icon>home</mat-icon>
     </button>
     <span class="spacer"></span>
@@ -29,17 +29,24 @@
 
 <div *ngIf="user; else showLogin" fxFlex fxLayout="column">
   <mat-sidenav-container class="nav-container" fxFlex fxLayout="column">
-    <mat-sidenav #sidenav mode="side" [opened]="sideNavToggle" class="sidenav"
-                 [fixedInViewport]="false">
-      <h2>Liste active</h2>
-      <mat-button-toggle-group [(ngModel)]="selectedList" vertical>
-        <mat-button-toggle *ngFor="let list of listNames | async"
-                           [value]="list"
-                           style="padding: 0 4px;"
-                           (click)="navigateToList($event)">
-          {{list}}
-        </mat-button-toggle>
-      </mat-button-toggle-group>
+    <mat-sidenav #sidenav mode="side" [opened]="sideNavToggle" class="sidenav" [fixedInViewport]="false">
+
+      <div class="sidenav-content">
+        <mat-nav-list>
+          <h3 class="subheading-2">Changer de liste</h3>
+          <a  mat-list-item routerLink="/list/{{list}}" *ngFor="let list of listNames | async"> {{ list }} </a>
+        </mat-nav-list>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <div class="sidenav-content">
+        <mat-nav-list>
+          <h3 class="subheading-2">Paramètres</h3>
+          <a mat-list-item routerLink="/account">Modifier / Créer / Inviter</a>
+        </mat-nav-list>
+      </div>
+
     </mat-sidenav>
     <router-outlet></router-outlet>
   </mat-sidenav-container>

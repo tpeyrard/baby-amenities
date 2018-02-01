@@ -7,12 +7,8 @@ import {environment} from '../environments/environment';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
-  MatButtonModule, MatButtonToggleModule, MatCardModule, MatChipsModule, MatDialogModule, MatFormFieldModule, MatIconModule, MatInputModule, MatListModule, MatOptionModule,
-  MatRadioButton,
-  MatRadioModule,
-  MatSelectModule,
-  MatSidenavModule,
-  MatToolbarModule
+  MatButtonModule, MatButtonToggleModule, MatCardModule, MatDialogModule, MatFormFieldModule, MatIconModule, MatInputModule, MatListModule, MatOptionModule, MatRadioModule,
+  MatSelectModule, MatSidenavModule, MatToolbarModule
 } from '@angular/material';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {FlexLayoutModule} from "@angular/flex-layout";

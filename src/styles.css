@@ -11,6 +11,13 @@ body {
   font-family: Roboto, Arial, sans-serif;
 }
 
+/* Sidenav links */
+a {
+  text-decoration: none;
+}
+
+/* /Sidenav links */
+
 .spacer {
   flex: 1 1 auto;
 }
@@ -29,7 +36,7 @@ body {
   padding: 8px;
   align-items: center;
   justify-content: center;
-  max-width: 200px;
+  max-width: 32vw;
   box-shadow: 3px 0 6px rgba(0, 0, 0, .24);
 }
 
