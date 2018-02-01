@@ -4,7 +4,7 @@ import {Observable} from "rxjs/Observable";
 import {Article, CAT_TO_IMAGE} from "../article";
 
 @Component({
-  selector: 'app-account',
+  selector: 'app-basket',
   template: `
     <mat-sidenav-content class="nav-content">
       <h2 *ngIf="(userArticles | async)?.length == 0" style="text-align: center">Aucun article sélectionné.</h2>
@@ -33,7 +33,7 @@ import {Article, CAT_TO_IMAGE} from "../article";
   styles: [
       ``]
 })
-export class AccountComponent implements OnInit {
+export class BasketComponent implements OnInit {
   public userArticles: Observable<Article[]>;
   private listName: string;
 

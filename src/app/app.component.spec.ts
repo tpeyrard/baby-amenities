@@ -7,7 +7,7 @@ import {
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {AppRoutingModule} from "./app-routing.module";
 import {ArticlesComponent} from "./articles/articles.component";
-import {AccountComponent} from "./account/account.component";
+import {BasketComponent} from "./basket/basket.component";
 import {APP_BASE_HREF} from "@angular/common";
 import {AmenitiesService} from "./amenities.service";
 import {AngularFireDatabase} from "angularfire2/database";
@@ -19,7 +19,7 @@ describe('AppComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         AppComponent,
-        AccountComponent,
+        BasketComponent,
         ArticlesComponent
       ],
       imports: [

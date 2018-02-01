@@ -15,7 +15,7 @@ import {FlexLayoutModule} from "@angular/flex-layout";
 
 import {AppComponent} from './app.component';
 import {AppRoutingModule} from './app-routing.module';
-import {AccountComponent} from './account/account.component';
+import {BasketComponent} from './basket/basket.component';
 import {ArticlesComponent} from './articles/articles.component';
 import {AmenitiesService} from './amenities.service';
 import {DialogOverview, EditorComponent} from './editor/editor.component';
@@ -27,7 +27,7 @@ import {HomeComponent} from './home/home.component';
 @NgModule({
   declarations: [
     AppComponent,
-    AccountComponent,
+    BasketComponent,
     ArticlesComponent,
     EditorComponent,
     DialogOverview,
