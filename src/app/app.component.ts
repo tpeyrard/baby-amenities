@@ -84,5 +84,9 @@ export class AppComponent implements OnInit {
   toggleSidenav(): void {
     this.sideNavToggle = !this.sideNavToggle;
   }
+
+  setSelectedList(list: string){
+    this.selectedList = list;
+  }
 }
 
