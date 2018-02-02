@@ -4,7 +4,7 @@
       ".read": "auth !== null",
       ".write": "auth !== null",
       "$list_id": {
-        ".validate": "newData.isString()",
+        ".validate": "$list_id.matches(/^[a-zA-Z]{5,}$/)",
         "admin": {
           ".validate": "newData.val() === auth.uid"
         }
