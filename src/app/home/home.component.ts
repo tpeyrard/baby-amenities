@@ -7,7 +7,7 @@ import {FormControl, Validators} from '@angular/forms';
 @Component({
   selector: 'app-home',
   template: `
-    <mat-sidenav-content class="nav-bloc-content" style="display: block; padding: 20px 200px 40px 200px;">
+    <mat-sidenav-content class="nav-bloc-content">
       <h1 class="mat-headline">Configuration</h1>
       <h2 class="mat-title">Vos listes</h2>
       <mat-button-toggle-group [(ngModel)]="selectedList">

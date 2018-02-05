@@ -59,35 +59,15 @@ a {
   margin-left: 6px !important;
 }
 
-@media (max-width: 400px) {
-  .nav-content {
-    padding: 8px 8px 40px 8px;
-  }
-
-  .card-odd {
-    margin-left: 0 !important;
-  }
-
-  .card-even {
-    margin-left: 0 !important;
-  }
-}
-
-@media (min-width: 1000px) {
-  .card-even {
-    margin-left: 6px !important;
-  }
-}
-
 .card {
   margin-bottom: 10px;
   width: 400px;
-/*
-  Use this to display action buttons at the bottom of the card
-  Other idea: fixed height or at least a default image
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: space-between !important;*/
+  /*
+    Use this to display action buttons at the bottom of the card
+    Other idea: fixed height or at least a default image
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;*/
 }
 
 .img-container {
@@ -104,7 +84,7 @@ a {
   transform: translateY(-6%);
 }
 
-.mat-card>.mat-card-actions:last-child {
+.mat-card > .mat-card-actions:last-child {
   margin-bottom: 0 !important;
   padding-bottom: 0;
   bottom: 8px;
@@ -119,28 +99,20 @@ a {
 .mdl-badge {
   position: relative;
   white-space: nowrap;
-  margin-right: 24px; }
+  margin-right: 24px;
+}
+
 .mdl-badge:not([data-badge]) {
-  margin-right: auto; }
+  margin-right: auto;
+}
+
 .mdl-badge[data-badge]::after {
   content: attr(data-badge);
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
   flex-direction: row;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
   justify-content: center;
-  -webkit-align-content: center;
-  -ms-flex-line-pack: center;
   align-content: center;
-  -webkit-align-items: center;
-  -ms-flex-align: center;
   align-items: center;
   position: absolute;
   top: -11px;
@@ -152,15 +124,54 @@ a {
   height: 22px;
   border-radius: 50%;
   background: #FF4081;
-  color: rgb(255,255,255); }
+  color: rgb(255, 255, 255);
+}
+
 .mdl-badge[data-badge]::after {
   top: -10px;
-  right: -5px; }
+  right: -5px;
+}
+
 .mdl-badge.mdl-badge--no-background[data-badge]::after {
-  color: rgb(255,64,129);
-  background: rgba(255,255,255,0.2);
-  box-shadow: 0 0 1px gray; }
+  color: rgb(255, 64, 129);
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 1px gray;
+}
+
 .mdl-badge.mdl-badge--overlap {
-  margin-right: 8px; }
+  margin-right: 8px;
+}
+
 .mdl-badge.mdl-badge--overlap::after {
-  right: -10px; }
+  right: -10px;
+}
+
+/* MEDIA */
+@media (max-width: 400px) {
+  .nav-content, .nav-bloc-content {
+    padding: 8px 8px 40px 8px;
+  }
+
+  .card-odd {
+    margin-left: 0 !important;
+  }
+
+  .card-even {
+    margin-left: 0 !important;
+  }
+  .card {
+    min-width: 200px;
+    width: 100%;
+  }
+
+  .mat-card-image {
+    width: calc(100% - 16px) !important;
+    margin-left: 8px !important;
+  }
+}
+
+@media (min-width: 1000px) {
+  .card-even {
+    margin-left: 6px !important;
+  }
+}
