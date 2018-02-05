@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Inject, Input, OnInit, Output} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material";
-import {Article, CATEGORIES} from "../article";
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
+import {Article, CATEGORIES} from '../article';
 
 @Component({
   selector: 'app-editor',
@@ -19,7 +19,7 @@ export class EditorComponent implements OnInit {
   }
 
   open(): void {
-    let dialogRef = this.dialog.open(DialogOverview, {
+    const dialogRef = this.dialog.open(DialogOverview, {
       width: '400px',
       data: new Article()
     });
@@ -65,7 +65,6 @@ export class EditorComponent implements OnInit {
         <mat-label>Description</mat-label>
         <textarea matInput tabindex="6" [(ngModel)]="article.desc"
                   placeholder="Description" matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="5">
-          
         </textarea>
       </mat-form-field>
     </div>

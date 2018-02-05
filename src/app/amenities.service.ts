@@ -10,11 +10,12 @@ import 'rxjs/add/operator/take'
 const ARTICLE_PATH = '/articles/';
 const USERS_PATH = '/users/';
 const USER_TO_LIST = '/userToList/';
+const LIST_NAMES = '/list_names/';
 
 @Injectable()
 export class AmenitiesService {
 
-  private _listNames: AngularFireList<string>;
+  private _listNames: AngularFireList<any>;
   private user: firebase.User;
 
   constructor(private database: AngularFireDatabase, private afAuth: AngularFireAuth) {
@@ -134,4 +135,36 @@ export class AmenitiesService {
     console.log('Cannot access list of articles listName is undefined or null');
   }
 
+  createList(newListName: string) {
+    function addPrimaryList(name) {
+      const output = {};
+      output[name] = {type: 'primary'};
+      this.database.list(USER_TO_LIST).set(this.user.uid, output);
+    }
+
+    function addSecondaryList(name) {
+      this._listNames.set(name, {tpe: 'secondary'});
+    }
+
+    function userHasNoList(userList) {
+      return !userList || userList.length == 0;
+    }
+
+    function addToUserToListMapping(name) {
+      this._listNames
+        .snapshotChanges()
+        .take(1)
+        .subscribe(userList => {
+          if (userHasNoList(userList)) {
+            addPrimaryList(name);
+          } else {
+            addSecondaryList(name);
+          }
+        });
+    }
+
+    this.database.list(LIST_NAMES).set(newListName, {admin: this.user.uid});
+
+    addToUserToListMapping(newListName);
+  }
 }
