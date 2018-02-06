@@ -13,9 +13,10 @@
     "users": {
       "$list_id": {
         ".read": "data.child(auth.uid).exists()",
-        ".validate": "root.child('list_names/'+$list_id).exists()",
+        ".validate": "root.child('list_names/'+$list_id).exists() && root.child('list_names/'+$list_id+'/admin').val() === auth.uid",
+        ".write": "auth != null",
         "$user_id": {
-          ".write": "auth != null && auth.uid === $user_id"
+          ".validate": "$user_id === auth.uid"
         }
       }
     },

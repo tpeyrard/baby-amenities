@@ -136,35 +136,41 @@ export class AmenitiesService {
   }
 
   createList(newListName: string) {
-    function addPrimaryList(name) {
-      const output = {};
-      output[name] = {type: 'primary'};
-      this.database.list(USER_TO_LIST).set(this.user.uid, output);
-    }
-
-    function addSecondaryList(name) {
-      this._listNames.set(name, {tpe: 'secondary'});
-    }
-
-    function userHasNoList(userList) {
-      return !userList || userList.length == 0;
-    }
-
-    function addToUserToListMapping(name) {
-      this._listNames
-        .snapshotChanges()
-        .take(1)
-        .subscribe(userList => {
-          if (userHasNoList(userList)) {
-            addPrimaryList(name);
-          } else {
-            addSecondaryList(name);
-          }
-        });
-    }
-
     this.database.list(LIST_NAMES).set(newListName, {admin: this.user.uid});
 
-    addToUserToListMapping(newListName);
+    this.addToUserToListMapping(newListName);
+
+    this.addToUsersMapping(newListName);
+  }
+
+   private addPrimaryList(name) {
+    const value = {};
+    value[name] = {type: 'primary'};
+    this.database.list(USER_TO_LIST).set(this.user.uid, value);
+  }
+
+  private addSecondaryList(name) {
+    this._listNames.set(name, {tpe: 'secondary'});
+  }
+
+  private userHasNoList = (userList) => !userList || userList.length == 0;
+
+  private addToUserToListMapping(name: string) {
+    this._listNames
+      .snapshotChanges()
+      .take(1)
+      .subscribe(userList => {
+        if (this.userHasNoList(userList)) {
+          this.addPrimaryList(name);
+        } else {
+          this.addSecondaryList(name);
+        }
+      });
+  }
+
+  private addToUsersMapping(name: string) {
+    const value = {};
+    value[this.user.uid] = {present: 'true'};
+    this.database.list(USERS_PATH).set(name, value);
   }
 }
