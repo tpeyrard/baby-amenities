@@ -11,16 +11,17 @@ import {Router} from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  @ViewChild(EditorComponent) editor: EditorComponent;
 
-  signedIn = false;
-  user = null;
+  public signedIn = false;
+  public isAdmin: boolean;
+  public user = null;
   public sideNavToggle: boolean;
   public userArticlesCount: number;
   public listNames: Observable<String[]>;
   public selectedList: string;
 
   constructor(public amenitiesService: AmenitiesService, private router: Router) {
+    this.isAdmin = true;
   }
 
   ngOnInit() {
@@ -43,10 +44,7 @@ export class AppComponent implements OnInit {
         this.listNames = this.amenitiesService.listNames()
           .take(1)
           .map(changes => changes.map(c => c.key));
-
       });
-
-
   }
 
   computeLock(): string {
@@ -65,20 +63,6 @@ export class AppComponent implements OnInit {
     if (this.signedIn) {
       this.amenitiesService.logout();
     }
-  }
-
-  create(): void {
-    if (this.signedIn) {
-      this.editor.open();
-    }
-  }
-
-  persist(article: Article) {
-    this.amenitiesService.add(article, this.selectedList);
-  }
-
-  navigateToList(event) {
-    this.router.navigate(['/list', event.target.innerText]);
   }
 
   toggleSidenav(): void {

@@ -7,7 +7,8 @@ import {environment} from '../environments/environment';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
-  MatButtonModule, MatButtonToggleModule, MatCardModule, MatDialogModule, MatFormFieldModule, MatIconModule, MatInputModule, MatListModule, MatOptionModule, MatRadioModule,
+  MatButtonModule, MatButtonToggleModule, MatCardModule, MatChipsModule, MatDialogModule, MatFormFieldModule, MatIconModule, MatInputModule, MatListModule, MatOptionModule,
+  MatRadioModule,
   MatSelectModule, MatSidenavModule, MatToolbarModule
 } from '@angular/material';
 import {NgSelectModule} from '@ng-select/ng-select';
@@ -48,6 +49,7 @@ import {HomeComponent} from './home/home.component';
     MatCardModule,
     AppRoutingModule,
     MatDialogModule,
+    MatChipsModule,
     MatFormFieldModule,
     FormsModule,
     ReactiveFormsModule,

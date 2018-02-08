@@ -21,3 +21,10 @@
 
   </ng-container>
 </mat-sidenav-content>
+
+
+<app-editor (articleChange)="persist($event)"></app-editor>
+
+<button mat-fab color="primary" id="createButton" (click)="create()" *ngIf="isAdmin">
+  <mat-icon aria-hidden="true">add</mat-icon>
+</button>

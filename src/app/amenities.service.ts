@@ -15,7 +15,7 @@ const LIST_NAMES = '/list_names/';
 @Injectable()
 export class AmenitiesService {
 
-  private _listNames: AngularFireList<any>;
+  private _userToList: AngularFireList<any>;
   private user: firebase.User;
 
   constructor(private database: AngularFireDatabase, private afAuth: AngularFireAuth) {
@@ -23,7 +23,7 @@ export class AmenitiesService {
     this.authenticationState().subscribe(user => {
       if (user) {
         this.user = user;
-        this._listNames = this.database.list<string>(USER_TO_LIST + user.uid);
+        this._userToList = this.database.list<string>(USER_TO_LIST + user.uid);
       }
     });
   }
@@ -40,6 +40,14 @@ export class AmenitiesService {
 
   logout() {
     this.afAuth.auth.signOut();
+  }
+
+  isAdmin(listName: string): Observable<boolean> {
+    return this.database.list(LIST_NAMES + "/" + listName)
+      .snapshotChanges()
+      .map(changes => changes.find(listName => listName.payload.val() === this.user.uid))
+      .map(adminFound => {return !!adminFound})
+      .take(1);
   }
 
   authenticationState(): Observable<User> {
@@ -95,7 +103,7 @@ export class AmenitiesService {
   }
 
   listName(): Observable<String> {
-    return this._listNames.snapshotChanges()
+    return this._userToList.snapshotChanges()
       .take(1)
       .map(changes => changes
         .find(c => {
@@ -110,7 +118,7 @@ export class AmenitiesService {
   }
 
   listNames(): Observable<any[]> {
-    return this._listNames.snapshotChanges();
+    return this._userToList.snapshotChanges();
   }
 
   private articlesOfList(listName: string): Observable<Article[]> {
@@ -143,20 +151,20 @@ export class AmenitiesService {
     this.addToUsersMapping(newListName);
   }
 
-   private addPrimaryList(name) {
+  private addPrimaryList(name) {
     const value = {};
     value[name] = {type: 'primary'};
     this.database.list(USER_TO_LIST).set(this.user.uid, value);
   }
 
   private addSecondaryList(name) {
-    this._listNames.set(name, {tpe: 'secondary'});
+    this._userToList.set(name, {tpe: 'secondary'});
   }
 
   private userHasNoList = (userList) => !userList || userList.length == 0;
 
   private addToUserToListMapping(name: string) {
-    this._listNames
+    this._userToList
       .snapshotChanges()
       .take(1)
       .subscribe(userList => {

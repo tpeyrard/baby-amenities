@@ -6,8 +6,9 @@
     <button mat-icon-button routerLink="/list/{{selectedList}}">
       <mat-icon>home</mat-icon>
     </button>
+    <p style="font-weight: lighter; color: #dfdfdf;">{{selectedList}}</p>
     <span class="spacer"></span>
-    <p *ngIf="user" id="userName">{{ user.displayName }}</p>
+    <p *ngIf="user" id="userName">{{user.displayName}}</p>
     <nav>
       <button mat-icon-button routerLink="/cart" fxShow="{{signedIn}}">
         <ng-container *ngIf="0 < userArticlesCount; else withoutBadge">
@@ -34,7 +35,7 @@
       <div class="sidenav-content">
         <mat-nav-list>
           <h3 class="subheading-2">Changer de liste</h3>
-          <a  mat-list-item (click)="setSelectedList(list)" routerLink="/list/{{list}}" *ngFor="let list of listNames | async"> {{ list }} </a>
+          <a mat-list-item (click)="setSelectedList(list)" routerLink="/list/{{list}}" *ngFor="let list of listNames | async"> {{ list }} </a>
         </mat-nav-list>
       </div>
 
@@ -58,9 +59,3 @@
       <span>Login with Google</span></button>
   </div>
 </ng-template>
-
-<app-editor (articleChange)="persist($event)"></app-editor>
-
-<button mat-fab color="primary" id="createButton" (click)="create()" *ngIf="signedIn">
-  <mat-icon aria-hidden="true">add</mat-icon>
-</button>

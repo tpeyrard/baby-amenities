@@ -146,6 +146,14 @@ a {
   right: -10px;
 }
 
+#createButton {
+  display: block;
+  position: fixed;
+  bottom: 1em;
+  right: 1.5em;
+  z-index: 100;
+}
+
 /* MEDIA */
 @media (max-width: 400px) {
   .nav-content, .nav-bloc-content {
