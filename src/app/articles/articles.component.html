@@ -15,7 +15,7 @@
       </mat-card-content>
       <mat-card-actions class="card-actions">
         <button mat-button color="primary" (click)="addToCart(article)">JE PRENDS</button>
-        <button mat-button color="warn" (click)='removeArticle(article.key)'>SUPPRIMER</button>
+        <button mat-button color="warn" (click)="removeArticle(article.key)" *ngIf="isAdmin">SUPPRIMER</button>
       </mat-card-actions>
     </mat-card>
 
