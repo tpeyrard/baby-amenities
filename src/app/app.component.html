@@ -10,7 +10,7 @@
     <span class="spacer"></span>
     <p *ngIf="user" id="userName">{{user.displayName}}</p>
     <nav>
-      <button mat-icon-button routerLink="/cart" fxShow="{{signedIn}}">
+      <button mat-icon-button routerLink="/basket" fxShow="{{signedIn}}">
         <ng-container *ngIf="0 < userArticlesCount; else withoutBadge">
           <mat-icon aria-hidden="true" class="mdl-badge mdl-badge--overlap" [attr.data-badge]="userArticlesCount">
             shopping_basket

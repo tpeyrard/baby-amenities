@@ -46,7 +46,7 @@ export class AmenitiesService {
     return this.database.list(LIST_NAMES + "/" + listName)
       .snapshotChanges()
       .map(changes => changes.find(listName => listName.payload.val() === this.user.uid))
-      .map(adminFound => {return !!adminFound})
+      .map(adminFound => !!adminFound)
       .take(1);
   }
 
@@ -67,6 +67,8 @@ export class AmenitiesService {
       this.database.list<Article>(ARTICLE_PATH + listName).update(article.key, article.take());
 
       this.userArticlesDatabase(listName).set(article.key, article);
+    } else {
+      console.log('Cannot move article to user cart. user=[' + this.user + '] - listName=[' + listName + ']');
     }
   }
 
@@ -129,7 +131,7 @@ export class AmenitiesService {
       });
   }
 
-  private userArticlesDatabase(listName: string) {
+  private userArticlesDatabase(listName: string) : AngularFireList<Article>{
     if (this.user) {
       return this.database.list<Article>(USER_TO_LIST + this.user.uid + "/" + listName + "/articles/");
     }
