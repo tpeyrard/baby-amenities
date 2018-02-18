@@ -25,8 +25,8 @@ import {Article, CAT_TO_IMAGE} from "../article";
               <p [innerText]="article.desc" class="card-desc"></p>
             </mat-card-content>
             <mat-card-actions class="card-actions" align="end">
-              <button mat-button color="primary" (click)="confirmPurchase(article)">Acheté</button>
-              <button mat-button color="warn" (click)='cancel(article)'>Annuler</button>
+              <button mat-button color="primary" (click)="confirmPurchase(article, list.key)">Acheté</button>
+              <button mat-button color="warn" (click)='cancel(article, list.key)'>Annuler</button>
             </mat-card-actions>
           </mat-card>
         </ng-container>
@@ -48,17 +48,17 @@ export class BasketComponent implements OnInit {
       .subscribe(lists => {
         this.userLists = lists;
         lists.map(list => {
-          return this.userArticles[list.key] = (this.amenitiesService.getArticlesForCurrentUser(list.key));
+          return this.userArticles[list.key] = this.amenitiesService.getArticlesForCurrentUser(list.key);
         });
       });
 
   }
 
-  confirmPurchase(article: Article, listName = 'listNameToFix') {
+  confirmPurchase(article: Article, listName) {
     this.amenitiesService.articleBought(article, listName);
   }
 
-  cancel(article: Article, listName = 'listNameToFix') {
+  cancel(article: Article, listName) {
     this.amenitiesService.release(article, listName);
   }
 
