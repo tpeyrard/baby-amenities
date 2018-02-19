@@ -1,9 +1,6 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {AmenitiesService} from "./amenities.service";
-import {EditorComponent} from "./editor/editor.component";
-import {Article} from "./article";
-import {Observable} from "rxjs/Observable";
-import {Router} from '@angular/router';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {AmenitiesService} from './amenities.service';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-root',
@@ -13,15 +10,13 @@ import {Router} from '@angular/router';
 export class AppComponent implements OnInit {
 
   public signedIn = false;
-  public isAdmin: boolean;
   public user = null;
   public sideNavToggle: boolean;
-  public userArticlesCount: number;
+  public userArticlesCount = 0;
   public listNames: Observable<String[]>;
   public selectedList: string;
 
-  constructor(public amenitiesService: AmenitiesService, private router: Router) {
-    this.isAdmin = true;
+  constructor(public amenitiesService: AmenitiesService, private cdRef: ChangeDetectorRef) {
   }
 
   ngOnInit() {
@@ -31,20 +26,27 @@ export class AppComponent implements OnInit {
         this.user = user;
         this.signedIn = (user != null);
 
-        this.amenitiesService.listName()
-          .subscribe((listName: string) => {
-            if (listName) {
-              this.selectedList = listName;
-
-              this.amenitiesService.getArticlesForCurrentUser(this.selectedList)
-                .subscribe(articles => this.userArticlesCount = articles.length);
-            }
-          });
-
         this.listNames = this.amenitiesService.listNames()
           .take(1)
           .map(changes => changes.map(c => c.key));
+
+        this.amenitiesService.listNames()
+          .map(changes => changes.map(c => c.key))
+          .subscribe(lists => lists
+            .map(list => this.amenitiesService.getArticlesForCurrentUser(list).take(1)
+              .subscribe(articles => {
+                return this.userArticlesCount += articles.length; //TODO fix me
+              })));
+
+        this.amenitiesService.selectedList().subscribe(listname => {
+          return this.selectedList = listname;
+        });
+
       });
+  }
+
+  ngAfterViewChecked() {
+    this.cdRef.detectChanges();
   }
 
   computeLock(): string {
@@ -67,10 +69,6 @@ export class AppComponent implements OnInit {
 
   toggleSidenav(): void {
     this.sideNavToggle = !this.sideNavToggle;
-  }
-
-  setSelectedList(list: string){
-    this.selectedList = list;
   }
 }
 

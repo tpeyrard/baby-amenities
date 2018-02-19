@@ -6,6 +6,7 @@ import * as firebase from "firebase";
 import {User} from "firebase";
 import {Article} from "./article";
 import 'rxjs/add/operator/take'
+import {Subject} from "rxjs/Subject";
 
 const ARTICLE_PATH = '/articles/';
 const USERS_PATH = '/users/';
@@ -17,6 +18,7 @@ export class AmenitiesService {
 
   private _userToList: AngularFireList<any>;
   private user: firebase.User;
+  private _selectedList = new Subject<string>();
 
   constructor(private database: AngularFireDatabase, private afAuth: AngularFireAuth) {
 
@@ -72,7 +74,7 @@ export class AmenitiesService {
     }
   }
 
-  getArticlesForCurrentUser(listName: string): Observable<Article[]> {
+  getArticlesForCurrentUser(listName: string | String): Observable<Article[]> {
     if (listName) {
       return this.userArticlesDatabase(listName).snapshotChanges()
         .map(changes => {
@@ -104,7 +106,7 @@ export class AmenitiesService {
     }
   }
 
-  listName(): Observable<String> {
+  primaryListName(): Observable<String> {
     return this._userToList.snapshotChanges()
       .take(1)
       .map(changes => changes
@@ -131,7 +133,7 @@ export class AmenitiesService {
       });
   }
 
-  private userArticlesDatabase(listName: string) : AngularFireList<Article>{
+  private userArticlesDatabase(listName: string | String): AngularFireList<Article> {
     if (this.user) {
       return this.database.list<Article>(USER_TO_LIST + this.user.uid + "/" + listName + "/articles/");
     }
@@ -182,5 +184,13 @@ export class AmenitiesService {
     const value = {};
     value[this.user.uid] = {present: 'true'};
     this.database.list(USERS_PATH).set(name, value);
+  }
+
+  setSelectedList(listName: string) {
+    this._selectedList.next(listName);
+  }
+
+  selectedList(): Observable<string> {
+    return this._selectedList.asObservable();
   }
 }

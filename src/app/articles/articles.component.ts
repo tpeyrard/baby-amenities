@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {AmenitiesService} from "../amenities.service";
 import {Observable} from "rxjs/Observable";
 import {Article, CAT_TO_IMAGE} from "../article";
-import {ActivatedRoute, Params} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 import {EditorComponent} from "../editor/editor.component";
 
 @Component({
@@ -23,6 +23,7 @@ export class ArticlesComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.selectedList = params['listName'];
+      this.amenitiesService.setSelectedList(this.selectedList);
       this.articles = this.amenitiesService.getArticles(this.selectedList);
       this.amenitiesService.isAdmin(this.selectedList).subscribe(admin => this.isAdmin = admin); // TODO replace by switchMap
     });

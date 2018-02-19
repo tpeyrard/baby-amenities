@@ -35,7 +35,7 @@
       <div class="sidenav-content">
         <mat-nav-list>
           <h3 class="subheading-2">Changer de liste</h3>
-          <a mat-list-item (click)="setSelectedList(list)" routerLink="/list/{{list}}" *ngFor="let list of listNames | async"> {{ list }} </a>
+          <a mat-list-item routerLink="/list/{{list}}" *ngFor="let list of listNames | async"> {{ list }} </a>
         </mat-nav-list>
       </div>
 
