@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {AmenitiesService} from '../amenities.service';
-import {Article, CAT_TO_IMAGE} from "../article";
+import {Article, CAT_TO_IMAGE} from '../article';
 
 @Component({
   selector: 'app-basket',
   template: `
     <mat-sidenav-content class="nav-content">
       <ng-container *ngFor="let list of userLists">
-        <h2 class="mat-title" style="width: 100%;">Liste {{list.key}} :</h2>
+        <h2 class="mat-title" style="width: 100%;">Liste <a routerLink="/list/{{list.key}}">{{list.key}}</a> :</h2>
         <h3 class="subheading-2" *ngIf="(userArticles[list.key] | async)?.length == 0" style="text-align: center">
           Aucun article sélectionné.
         </h3>
