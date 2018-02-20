@@ -1,6 +1,7 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {AmenitiesService} from './amenities.service';
 import {Observable} from 'rxjs/Observable';
+import {BehaviorSubject} from "rxjs/BehaviorSubject";
 
 @Component({
   selector: 'app-root',
@@ -16,6 +17,8 @@ export class AppComponent implements OnInit {
   public listNames: Observable<String[]>;
   public selectedList: string;
 
+  private userArticlesByListCount = new BehaviorSubject<number[]>([]);
+
   constructor(public amenitiesService: AmenitiesService, private cdRef: ChangeDetectorRef) {
   }
 
@@ -26,22 +29,22 @@ export class AppComponent implements OnInit {
         this.user = user;
         this.signedIn = (user != null);
 
-        this.listNames = this.amenitiesService.listNames()
-          .take(1)
-          .map(changes => changes.map(c => c.key));
+        this.listNames = this.amenitiesService.listNames().map(changes => changes.map(c => c.key));
 
-        this.amenitiesService.listNames()
-          .map(changes => changes.map(c => c.key))
+        this.listNames
           .subscribe(lists => lists
-            .map(list => this.amenitiesService.getArticlesForCurrentUser(list).take(1)
+            .map((list, index) => this.amenitiesService.getArticlesForCurrentUser(list).take(1)
               .subscribe(articles => {
-                return this.userArticlesCount += articles.length; //TODO fix me
+                const previousValue = this.userArticlesByListCount.getValue();
+                previousValue[index] = articles.length;
+                this.userArticlesByListCount.next(previousValue);
               })));
 
         this.amenitiesService.selectedList().subscribe(listname => {
           return this.selectedList = listname;
         });
 
+        this.userArticlesByListCount.asObservable().subscribe(changes => this.userArticlesCount = changes.reduce((a, b) => a + b, 0));
       });
   }
 
