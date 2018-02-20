@@ -62,12 +62,7 @@ a {
 .card {
   margin-bottom: 10px;
   width: 400px;
-  /*
-    Use this to display action buttons at the bottom of the card
-    Other idea: fixed height or at least a default image
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: space-between !important;*/
+  max-height: 644px;
 }
 
 .img-container {
