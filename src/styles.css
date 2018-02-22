@@ -149,6 +149,10 @@ a {
   z-index: 100;
 }
 
+.divider {
+  margin: 16px 0 !important;
+}
+
 /* MEDIA */
 @media (max-width: 400px) {
   .nav-content, .nav-bloc-content {

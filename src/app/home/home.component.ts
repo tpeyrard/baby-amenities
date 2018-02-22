@@ -11,6 +11,18 @@ const LIST_NAME_MIN_LENGTH = 5;
   template: `
     <mat-sidenav-content class="nav-bloc-content">
       <h1 class="mat-headline">Configuration</h1>
+
+      <h2 class="mat-title">Créer une liste</h2>
+      <mat-form-field style="width: 30%">
+        <mat-label>Nom de la nouvelle liste</mat-label>
+        <input matInput #newListInput [(ngModel)]="newListName" placeholder="Nom de la nouvelle liste" required>
+        <mat-hint align="start"><strong>Au moins {{listNameMinLength}} caractères</strong> </mat-hint>
+        <mat-hint align="end">{{newListInput.value.length}}</mat-hint>
+      </mat-form-field>
+      <button mat-raised-button color="primary" (click)="newList()" [disabled]="disableButton()">Créer la liste</button>
+
+      <mat-divider class="divider"></mat-divider>
+
       <h2 class="mat-title">Vos listes</h2>
       <mat-button-toggle-group [(ngModel)]="selectedList">
         <mat-button-toggle *ngFor="let list of listNames | async" [value]="list.name" style="padding: 0 4px;">
@@ -19,6 +31,8 @@ const LIST_NAME_MIN_LENGTH = 5;
       </mat-button-toggle-group>
       <p class="mat-caption">{{selectedList}}{{selectedList ? " est votre liste principale" : "Vous n'avez pas de liste principale"}}</p>
 
+      <mat-divider class="divider"></mat-divider>
+      
       <h2 class="mat-title">Inviter quelqu'un à rejoindre votre liste</h2>
       <ng-select [items]="listNames | async"
                  bindLabel="name"
@@ -32,15 +46,6 @@ const LIST_NAME_MIN_LENGTH = 5;
         </mat-form-field>
         <button mat-raised-button color="primary" disabled>Envoyer l'invitation</button>
       </p>
-
-      <h2 class="mat-title">Créer une liste</h2>
-      <mat-form-field style="width: 30%">
-        <mat-label>Nom de la nouvelle liste</mat-label>
-        <input matInput #newListInput [(ngModel)]="newListName" placeholder="Nom de la nouvelle liste" required>
-        <mat-hint align="start"><strong>Au moins {{listNameMinLength}} caractères</strong> </mat-hint>
-        <mat-hint align="end">{{newListInput.value.length}}</mat-hint>
-      </mat-form-field>
-      <button mat-raised-button color="primary" (click)="newList()" [disabled]="disableButton()">Créer la liste</button>
     </mat-sidenav-content>
   `,
   styles: []
