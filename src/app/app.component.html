@@ -30,7 +30,7 @@
 
 <div *ngIf="user; else showLogin" fxFlex fxLayout="column">
   <mat-sidenav-container class="nav-container" fxFlex fxLayout="column">
-    <mat-sidenav #sidenav mode="side" [opened]="sideNavToggle" class="sidenav" [fixedInViewport]="false">
+    <mat-sidenav #sidenav mode="over" (closed)="closeSidenav()" [opened]="sideNavToggle" class="sidenav" [fixedInViewport]="false">
 
       <div class="sidenav-content">
         <mat-nav-list>

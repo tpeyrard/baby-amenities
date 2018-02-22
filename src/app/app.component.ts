@@ -73,5 +73,9 @@ export class AppComponent implements OnInit {
   toggleSidenav(): void {
     this.sideNavToggle = !this.sideNavToggle;
   }
+
+  closeSidenav(): void {
+    this.sideNavToggle = false;
+  }
 }
 
