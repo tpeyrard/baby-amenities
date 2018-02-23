@@ -24,12 +24,9 @@ const LIST_NAME_MIN_LENGTH = 5;
       <mat-divider class="divider"></mat-divider>
 
       <h2 class="mat-title">Vos listes</h2>
-      <mat-button-toggle-group [(ngModel)]="selectedList">
-        <mat-button-toggle *ngFor="let list of listNames | async" [value]="list.name" style="padding: 0 4px;">
-          {{list.name}}
-        </mat-button-toggle>
-      </mat-button-toggle-group>
-      <p class="mat-caption">{{selectedList}}{{selectedList ? " est votre liste principale" : "Vous n'avez pas de liste principale"}}</p>
+      <mat-list>
+        <mat-list-item *ngFor="let list of listNames | async">{{list.name}}</mat-list-item>
+      </mat-list>
 
       <mat-divider class="divider"></mat-divider>
       
