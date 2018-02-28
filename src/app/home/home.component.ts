@@ -1,8 +1,8 @@
 import {Observable} from 'rxjs/Observable';
 import {Component, OnInit} from '@angular/core';
 import {AmenitiesService} from '../amenities.service';
-import {Router} from '@angular/router';
 import {FormControl, Validators} from '@angular/forms';
+import {List} from "../list";
 
 const LIST_NAME_MIN_LENGTH = 5;
 
@@ -16,7 +16,7 @@ const LIST_NAME_MIN_LENGTH = 5;
       <mat-form-field style="width: 30%">
         <mat-label>Nom de la nouvelle liste</mat-label>
         <input matInput #newListInput [(ngModel)]="newListName" placeholder="Nom de la nouvelle liste" required>
-        <mat-hint align="start"><strong>Au moins {{listNameMinLength}} caractères</strong> </mat-hint>
+        <mat-hint align="start"><strong>Au moins {{listNameMinLength}} caractères</strong></mat-hint>
         <mat-hint align="end">{{newListInput.value.length}}</mat-hint>
       </mat-form-field>
       <button mat-raised-button color="primary" (click)="newList()" [disabled]="disableButton()">Créer la liste</button>
@@ -24,12 +24,15 @@ const LIST_NAME_MIN_LENGTH = 5;
       <mat-divider class="divider"></mat-divider>
 
       <h2 class="mat-title">Vos listes</h2>
-      <mat-list>
-        <mat-list-item *ngFor="let list of listNames | async">{{list.name}}</mat-list-item>
+      <mat-list dense>
+        <mat-list-item *ngFor="let list of listNames | async">
+          <h4 mat-line>{{list.name}}</h4>
+          <p mat-line><span class="mat-caption"> Code d'invitation :</span> <span class="mat-body-1">{{list.invitationCode}}</span></p></mat-list-item>
+
       </mat-list>
 
       <mat-divider class="divider"></mat-divider>
-      
+
       <h2 class="mat-title">Inviter quelqu'un à rejoindre votre liste</h2>
       <ng-select [items]="listNames | async"
                  bindLabel="name"
@@ -52,25 +55,22 @@ export class HomeComponent implements OnInit {
 
   email = new FormControl('', [Validators.required, Validators.email]);
 
-  public listNames: Observable<object[]>;
-  public selectedList: string;
+  public listNames: Observable<List[]>;
   public listToInvite: object;
   public newListName: string;
   public listNameMinLength = LIST_NAME_MIN_LENGTH;
 
-  constructor(private amenitiesService: AmenitiesService, private router: Router) {
+  constructor(private amenitiesService: AmenitiesService) {
   }
 
   ngOnInit() {
     this.listNames = this.amenitiesService.listNames()
-      .map(changes => changes.map(c => {
-        const isPrimaryList = c.payload.val().type === 'primary';
-        const listName = c.key;
-        if (isPrimaryList) {
-          this.selectedList = listName;
-        }
-        return {'name': listName, 'isPrimary': isPrimaryList}
-      }));
+      .map(lists => {
+        return lists.map(list => {
+          const information = list.payload.val();
+          return new List(list.key, information.type, information.invitation);
+        });
+      });
   }
 
   getErrorMessage() {

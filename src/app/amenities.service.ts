@@ -45,9 +45,9 @@ export class AmenitiesService {
   }
 
   isAdmin(listName: string): Observable<boolean> {
-    return this.database.list(LIST_NAMES + "/" + listName)
+    return this.database.list(LIST_NAMES + '/' + listName)
       .snapshotChanges()
-      .map(changes => changes.find(listName => listName.payload.val() === this.user.uid))
+      .map(changes => changes.find(list => list.payload.val() === this.user.uid))
       .map(adminFound => !!adminFound)
       .take(1);
   }
@@ -157,12 +157,16 @@ export class AmenitiesService {
 
   private addPrimaryList(name) {
     const value = {};
-    value[name] = {type: 'primary'};
+    value[name] = AmenitiesService.listInformation(name, 'primary');
     this.database.list(USER_TO_LIST).set(this.user.uid, value);
   }
 
   private addSecondaryList(name) {
-    this._userToList.set(name, {tpe: 'secondary'});
+    this._userToList.set(name, AmenitiesService.listInformation(name, 'secondary'));
+  }
+
+  private static listInformation(name, type: string): object {
+    return {type: type, 'invitation': AmenitiesService.generateId(10)};
   }
 
   private userHasNoList = (userList) => !userList || userList.length == 0;
@@ -193,4 +197,15 @@ export class AmenitiesService {
   selectedList(): Observable<string> {
     return this._selectedList.asObservable();
   }
+
+  private static dec2hex(dec): string {
+    return ('0' + dec.toString(16)).substr(-2);
+  }
+
+  private static generateId(len): string {
+    const arr = new Uint8Array((len || 40) / 2);
+    window.crypto.getRandomValues(arr);
+    return Array.from(arr, AmenitiesService.dec2hex).join('');
+  };
+
 }

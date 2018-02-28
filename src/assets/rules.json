@@ -44,7 +44,12 @@
     "userToList": {
       "$user_id": {
         ".read": "auth !== null && auth.uid === $user_id",
-        ".write": "auth !== null && auth.uid === $user_id"
+        ".write": "auth !== null && auth.uid === $user_id",
+        "$list_id": {
+          "invitation": {
+            ".validate": "newData.val().length == 10"
+          }
+        }
       }
     }
   }
