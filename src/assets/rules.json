@@ -7,6 +7,9 @@
         ".validate": "$list_id.matches(/^[a-zA-Z]{5,}$/)",
         "admin": {
           ".validate": "newData.val() === auth.uid"
+        },
+        "invitation": {
+          ".validate": "newData.val().length == 10"
         }
       }
     },

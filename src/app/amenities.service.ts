@@ -148,38 +148,40 @@ export class AmenitiesService {
   }
 
   createList(newListName: string) {
-    this.database.list(LIST_NAMES).set(newListName, {admin: this.user.uid});
+    const invitationCode = AmenitiesService.generateId(10);
 
-    this.addToUserToListMapping(newListName);
+    this.database.list(LIST_NAMES).set(newListName, {admin: this.user.uid, 'invitation': invitationCode});
+
+    this.addToUserToListMapping(newListName, invitationCode);
 
     this.addToUsersMapping(newListName);
   }
 
-  private addPrimaryList(name) {
+  private addPrimaryList(name, invitationCode: string) {
     const value = {};
-    value[name] = AmenitiesService.listInformation(name, 'primary');
+    value[name] = AmenitiesService.listInformation(name, 'primary', invitationCode);
     this.database.list(USER_TO_LIST).set(this.user.uid, value);
   }
 
-  private addSecondaryList(name) {
-    this._userToList.set(name, AmenitiesService.listInformation(name, 'secondary'));
+  private addSecondaryList(name, invitationCode: string) {
+    this._userToList.set(name, AmenitiesService.listInformation(name, 'secondary', invitationCode));
   }
 
-  private static listInformation(name, type: string): object {
-    return {type: type, 'invitation': AmenitiesService.generateId(10)};
+  private static listInformation(name, type: string, invitationCode: string): object {
+    return {type: type, 'invitation': invitationCode};
   }
 
   private userHasNoList = (userList) => !userList || userList.length == 0;
 
-  private addToUserToListMapping(name: string) {
+  private addToUserToListMapping(name: string, invitationCode: string) {
     this._userToList
       .snapshotChanges()
       .take(1)
       .subscribe(userList => {
         if (this.userHasNoList(userList)) {
-          this.addPrimaryList(name);
+          this.addPrimaryList(name, invitationCode);
         } else {
-          this.addSecondaryList(name);
+          this.addSecondaryList(name, invitationCode);
         }
       });
   }
