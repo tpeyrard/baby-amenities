@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
-import {AngularFireDatabase, AngularFireList} from "angularfire2/database";
-import {AngularFireAuth} from "angularfire2/auth";
-import * as firebase from "firebase";
-import {User} from "firebase";
-import {Article} from "./article";
+import {AngularFireDatabase, AngularFireList} from 'angularfire2/database';
+import {AngularFireAuth} from 'angularfire2/auth';
+import * as firebase from 'firebase';
+import {User} from 'firebase';
+import {Article} from './article';
 import 'rxjs/add/operator/take'
-import {Subject} from "rxjs/Subject";
+import {Subject} from 'rxjs/Subject';
 
 const ARTICLE_PATH = '/articles/';
 const USERS_PATH = '/users/';
@@ -19,6 +19,16 @@ export class AmenitiesService {
   private _userToList: AngularFireList<any>;
   private user: firebase.User;
   private _selectedList = new Subject<string>();
+
+  private static dec2hex(dec): string {
+    return ('0' + dec.toString(16)).substr(-2);
+  }
+
+  private static generateId(len): string {
+    const arr = new Uint8Array((len || 40) / 2);
+    window.crypto.getRandomValues(arr);
+    return Array.from(arr, AmenitiesService.dec2hex).join('');
+  };
 
   constructor(private database: AngularFireDatabase, private afAuth: AngularFireAuth) {
 
@@ -106,21 +116,6 @@ export class AmenitiesService {
     }
   }
 
-  primaryListName(): Observable<String> {
-    return this._userToList.snapshotChanges()
-      .take(1)
-      .map(changes => changes
-        .find(c => {
-          return c.payload.val().type === 'primary';
-        }))
-      .map(primaryList => {
-        if (primaryList) {
-          return primaryList.key;
-        }
-        console.log('No primary list defined for current user.')
-      });
-  }
-
   listNames(): Observable<any[]> {
     return this._userToList.snapshotChanges();
   }
@@ -135,7 +130,7 @@ export class AmenitiesService {
 
   private userArticlesDatabase(listName: string | String): AngularFireList<Article> {
     if (this.user) {
-      return this.database.list<Article>(USER_TO_LIST + this.user.uid + "/" + listName + "/articles/");
+      return this.database.list<Article>(USER_TO_LIST + this.user.uid + '/' + listName + '/articles/');
     }
     console.log('Cannot access user database because user is undefined or null');
   }
@@ -186,10 +181,18 @@ export class AmenitiesService {
       });
   }
 
-  private addToUsersMapping(name: string) {
-    const value = {};
-    value[this.user.uid] = {present: 'true'};
-    this.database.list(USERS_PATH).set(name, value);
+  private addToUsersMapping(listName: string) {
+    const listPath = USERS_PATH + '/' + listName;
+    this.database.object(listPath).valueChanges()
+      .subscribe((listExists) => {
+        if (listExists) {
+          this.database.list(listPath).set(this.user.uid, {present: 'true'});
+        } else {
+          const value = {};
+          value[this.user.uid] = {present: 'true'};
+          this.database.list(USERS_PATH).set(listName, value);
+        }
+      });
   }
 
   setSelectedList(listName: string) {
@@ -200,14 +203,18 @@ export class AmenitiesService {
     return this._selectedList.asObservable();
   }
 
-  private static dec2hex(dec): string {
-    return ('0' + dec.toString(16)).substr(-2);
+
+  addCurrentUserWithInvitationCode(invitationCode: string) {
+    const NO_INVITATION_CODE = '0000000000';
+    this.database.list(LIST_NAMES, ref => ref.orderByChild('invitation').equalTo(invitationCode).limitToFirst(1))
+      .snapshotChanges()
+      .subscribe(matchingList => {
+        const listName = matchingList[0].key;
+
+        this.addToUserToListMapping(listName, NO_INVITATION_CODE);
+
+        this.addToUsersMapping(listName);
+      });
+
   }
-
-  private static generateId(len): string {
-    const arr = new Uint8Array((len || 40) / 2);
-    window.crypto.getRandomValues(arr);
-    return Array.from(arr, AmenitiesService.dec2hex).join('');
-  };
-
 }

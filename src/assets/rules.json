@@ -15,8 +15,8 @@
     },
     "users": {
       "$list_id": {
-        ".read": "data.child(auth.uid).exists()",
-        ".validate": "root.child('list_names/'+$list_id).exists() && root.child('list_names/'+$list_id+'/admin').val() === auth.uid",
+        ".read": "auth != null",
+        ".validate": "root.child('list_names/'+$list_id).exists()",
         ".write": "auth != null",
         "$user_id": {
           ".validate": "$user_id === auth.uid"

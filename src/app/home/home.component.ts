@@ -24,28 +24,23 @@ const LIST_NAME_MIN_LENGTH = 5;
       <mat-divider class="divider"></mat-divider>
 
       <h2 class="mat-title">Vos listes</h2>
+      <p class="mat-subheading-2" *ngIf="(listNames | async)?.length == 0">Vous ne faites parti d'aucune liste actuellement.</p>
       <mat-list dense>
         <mat-list-item *ngFor="let list of listNames | async">
-          <h4 mat-line>{{list.name}}</h4>
-          <p mat-line><span class="mat-caption"> Code d'invitation :</span> <span class="mat-body-1">{{list.invitationCode}}</span></p></mat-list-item>
-
+          <h3 mat-line class="mat-subheading-1"> <a routerLink="/list/{{list.name}}">{{list.name}}</a></h3>
+          <p mat-line><span class="mat-caption"> Code d'invitation :</span> <span class="mat-body-1">{{list.invitationCode}}</span></p>
+        </mat-list-item>
       </mat-list>
 
       <mat-divider class="divider"></mat-divider>
 
-      <h2 class="mat-title">Inviter quelqu'un à rejoindre votre liste</h2>
-      <ng-select [items]="listNames | async"
-                 bindLabel="name"
-                 placeholder="Sélectionnez une liste"
-                 [(ngModel)]="listToInvite">
-      </ng-select>
-      <p *ngIf="listToInvite">
-        <mat-form-field style="width: 350px">
-          <input matInput placeholder="Adresse Gmail de la personne à inviter" [formControl]="email" required>
-          <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
-        </mat-form-field>
-        <button mat-raised-button color="primary" disabled>Envoyer l'invitation</button>
-      </p>
+      <h2 class="mat-title">Rejoindre une liste</h2>
+
+      <mat-form-field style="width: 30%">
+        <mat-label>Entrez le code d'invitation</mat-label>
+        <input matInput #joinInput [(ngModel)]="code" placeholder="Code d'invitation" required>
+      </mat-form-field>
+      <button mat-raised-button color="primary" (click)="joinList()">Rejoindre la liste</button>
     </mat-sidenav-content>
   `,
   styles: []
@@ -53,11 +48,9 @@ const LIST_NAME_MIN_LENGTH = 5;
 
 export class HomeComponent implements OnInit {
 
-  email = new FormControl('', [Validators.required, Validators.email]);
-
   public listNames: Observable<List[]>;
-  public listToInvite: object;
   public newListName: string;
+  public code: string;
   public listNameMinLength = LIST_NAME_MIN_LENGTH;
 
   constructor(private amenitiesService: AmenitiesService) {
@@ -65,17 +58,10 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.listNames = this.amenitiesService.listNames()
-      .map(lists => {
-        return lists.map(list => {
+      .map(lists => lists.map(list => {
           const information = list.payload.val();
           return new List(list.key, information.type, information.invitation);
-        });
-      });
-  }
-
-  getErrorMessage() {
-    return this.email.hasError('required') ? 'You must enter a value' :
-      this.email.hasError('email') ? 'Not a valid email' : '';
+        }));
   }
 
   newList(): void {
@@ -84,6 +70,10 @@ export class HomeComponent implements OnInit {
 
   disableButton(): boolean {
     return this.newListName ? this.newListName.length < LIST_NAME_MIN_LENGTH : true;
+  }
+
+  joinList(): void {
+    this.amenitiesService.addCurrentUserWithInvitationCode(this.code);
   }
 }
 
