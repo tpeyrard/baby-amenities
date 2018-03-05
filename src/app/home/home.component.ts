@@ -28,7 +28,7 @@ const LIST_NAME_MIN_LENGTH = 5;
       <mat-list dense>
         <mat-list-item *ngFor="let list of listNames | async">
           <h3 mat-line class="mat-subheading-1"> <a routerLink="/list/{{list.name}}">{{list.name}}</a></h3>
-          <p mat-line><span class="mat-caption"> Code d'invitation :</span> <span class="mat-body-1">{{list.invitationCode}}</span></p>
+          <p mat-line *ngIf="list.isAdmin"><span class="mat-caption"> Code d'invitation :</span> <span class="mat-body-1">{{list.invitationCode}}</span></p>
         </mat-list-item>
       </mat-list>
 
@@ -60,7 +60,7 @@ export class HomeComponent implements OnInit {
     this.listNames = this.amenitiesService.listNames()
       .map(lists => lists.map(list => {
           const information = list.payload.val();
-          return new List(list.key, information.type, information.invitation);
+          return new List(list.key, information.isAdmin, information.invitation);
         }));
   }
 

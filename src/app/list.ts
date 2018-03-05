@@ -1,11 +1,11 @@
 export class List {
   public name: string;
-  public type: string;
+  public isAdmin: boolean;
   public invitationCode: string;
 
-  constructor(name?: string, type?: string, invitationCode?: string) {
+  constructor(name: string, isAdmin?: boolean, invitationCode?: string) {
     this.name = name;
-    this.type = type;
+    this.isAdmin = isAdmin || false;
     this.invitationCode = invitationCode;
   }
 

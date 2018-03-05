@@ -147,36 +147,37 @@ export class AmenitiesService {
 
     this.database.list(LIST_NAMES).set(newListName, {admin: this.user.uid, 'invitation': invitationCode});
 
-    this.addToUserToListMapping(newListName, invitationCode);
+    this.addToUserToListMapping(newListName, invitationCode, true);
 
     this.addToUsersMapping(newListName);
   }
 
-  private addPrimaryList(name, invitationCode: string) {
+  private addPrimaryList(name, listInformation: Object) {
     const value = {};
-    value[name] = AmenitiesService.listInformation(name, 'primary', invitationCode);
+    value[name] = listInformation;
     this.database.list(USER_TO_LIST).set(this.user.uid, value);
   }
 
-  private addSecondaryList(name, invitationCode: string) {
-    this._userToList.set(name, AmenitiesService.listInformation(name, 'secondary', invitationCode));
+  private addSecondaryList(name, listInformation: Object) {
+    this._userToList.set(name, listInformation);
   }
 
-  private static listInformation(name, type: string, invitationCode: string): object {
-    return {type: type, 'invitation': invitationCode};
+  private static listInformation(isAdmin: boolean, invitationCode: string): object {
+    return {'isAdmin': isAdmin, 'invitation': invitationCode};
   }
 
   private userHasNoList = (userList) => !userList || userList.length == 0;
 
-  private addToUserToListMapping(name: string, invitationCode: string) {
+  private addToUserToListMapping(name: string, invitationCode: string, isAdmin: boolean) {
+    const listInformation = AmenitiesService.listInformation(isAdmin, invitationCode);
     this._userToList
       .snapshotChanges()
       .take(1)
       .subscribe(userList => {
         if (this.userHasNoList(userList)) {
-          this.addPrimaryList(name, invitationCode);
+          this.addPrimaryList(name, listInformation);
         } else {
-          this.addSecondaryList(name, invitationCode);
+          this.addSecondaryList(name, listInformation);
         }
       });
   }
@@ -211,7 +212,7 @@ export class AmenitiesService {
       .subscribe(matchingList => {
         const listName = matchingList[0].key;
 
-        this.addToUserToListMapping(listName, NO_INVITATION_CODE);
+        this.addToUserToListMapping(listName, NO_INVITATION_CODE, false);
 
         this.addToUsersMapping(listName);
       });
