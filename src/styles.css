@@ -153,6 +153,10 @@ a {
   margin: 16px 0 !important;
 }
 
+.ba-form-field {
+  width: 30%;
+}
+
 /* MEDIA */
 @media (max-width: 400px) {
   .nav-content, .nav-bloc-content {
@@ -166,6 +170,7 @@ a {
   .card-even {
     margin-left: 0 !important;
   }
+
   .card {
     min-width: 200px;
     width: 100%;
@@ -174,6 +179,14 @@ a {
   .mat-card-image {
     width: calc(100% - 16px) !important;
     margin-left: 8px !important;
+  }
+
+  .ba-form-field {
+    width: 55%;
+  }
+
+  mat-sidenav {
+    min-width: 200px;
   }
 }
 

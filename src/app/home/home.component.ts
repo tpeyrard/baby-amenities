@@ -13,7 +13,7 @@ const LIST_NAME_MIN_LENGTH = 5;
       <h1 class="mat-headline">Configuration</h1>
 
       <h2 class="mat-title">Créer une liste</h2>
-      <mat-form-field style="width: 30%">
+      <mat-form-field class="ba-form-field">
         <mat-label>Nom de la nouvelle liste</mat-label>
         <input matInput #newListInput [(ngModel)]="newListName" placeholder="Nom de la nouvelle liste" required>
         <mat-hint align="start"><strong>Au moins {{listNameMinLength}} caractères</strong></mat-hint>
@@ -36,7 +36,7 @@ const LIST_NAME_MIN_LENGTH = 5;
 
       <h2 class="mat-title">Rejoindre une liste</h2>
 
-      <mat-form-field style="width: 30%">
+      <mat-form-field class="ba-form-field">
         <mat-label>Entrez le code d'invitation</mat-label>
         <input matInput #joinInput [(ngModel)]="code" placeholder="Code d'invitation" required>
       </mat-form-field>
