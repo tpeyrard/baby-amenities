@@ -56,6 +56,10 @@ export class AppComponent implements OnInit {
     return this.signedIn ? 'lock_open' : 'lock';
   }
 
+  displayName(): string {
+    return this.user.displayName.split(" ").map(name => name[0]).join(".");
+  }
+
   signInOrOut(): void {
     if (!this.signedIn) {
       this.amenitiesService.login();

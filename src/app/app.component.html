@@ -8,7 +8,7 @@
     </button>
     <p style="font-weight: lighter; color: #dfdfdf;">{{selectedList}}</p>
     <span class="spacer"></span>
-    <p *ngIf="user" id="userName">{{user.displayName}}</p>
+    <p *ngIf="user" id="userName">{{displayName()}}</p>
     <nav>
       <button mat-icon-button routerLink="/basket" fxShow="{{signedIn}}">
         <ng-container *ngIf="0 < userArticlesCount; else withoutBadge">
