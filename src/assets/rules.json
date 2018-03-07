@@ -4,12 +4,12 @@
       ".read": "auth !== null",
       ".write": "auth !== null",
       "$list_id": {
-        ".validate": "$list_id.matches(/^[a-zA-Z]{5,}$/)",
+        ".validate": "$list_id.matches(/^[a-zA-Z]{5,}$/) && !data.exists() && newData.exists()",
         "admin": {
-          ".validate": "newData.val() === auth.uid"
+          ".validate": "newData.val() === auth.uid && !data.exists() && newData.exists()"
         },
         "invitation": {
-          ".validate": "newData.val().length == 10"
+          ".validate": "newData.val().length == 10 && !data.exists() && newData.exists()"
         }
       }
     },
