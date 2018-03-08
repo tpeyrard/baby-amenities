@@ -142,24 +142,26 @@ export class AmenitiesService {
     console.log('Cannot access list of articles listName is undefined or null');
   }
 
-  createList(newListName: string) {
+  createList(newListName: string): Promise<void> {
     const invitationCode = AmenitiesService.generateId(10);
 
-    this.database.list(LIST_NAMES).set(newListName, {admin: this.user.uid, 'invitation': invitationCode});
+    return this.database.list(LIST_NAMES)
+      .set(newListName, {admin: this.user.uid, 'invitation': invitationCode})
+      .then(() => {
+        this.addToUserToListMapping(newListName, invitationCode, true);
 
-    this.addToUserToListMapping(newListName, invitationCode, true);
-
-    this.addToUsersMapping(newListName);
+        this.addToUsersMapping(newListName);
+      });
   }
 
-  private addPrimaryList(name, listInformation: Object) {
+  private addPrimaryList(name, listInformation: Object): Promise<void> {
     const value = {};
     value[name] = listInformation;
-    this.database.list(USER_TO_LIST).set(this.user.uid, value);
+    return this.database.list(USER_TO_LIST).set(this.user.uid, value);
   }
 
-  private addSecondaryList(name, listInformation: Object) {
-    this._userToList.set(name, listInformation);
+  private addSecondaryList(name, listInformation: Object): Promise<void> {
+    return this._userToList.set(name, listInformation);
   }
 
   private static listInformation(isAdmin: boolean, invitationCode: string): object {
@@ -170,8 +172,7 @@ export class AmenitiesService {
 
   private addToUserToListMapping(name: string, invitationCode: string, isAdmin: boolean) {
     const listInformation = AmenitiesService.listInformation(isAdmin, invitationCode);
-    this._userToList
-      .snapshotChanges()
+    this.listNames()
       .take(1)
       .subscribe(userList => {
         if (this.userHasNoList(userList)) {
