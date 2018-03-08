@@ -80,7 +80,7 @@ export class HomeComponent implements OnInit {
     this.amenitiesService.createList(this.newListName)
       .then(() => {
         this.listAlreadyExists = false;
-        setTimeout(this.router.navigate(['list/' + this.newListName]), 800)
+        this.router.navigate(['list/' + this.newListName]);
       })
       .catch(() => {
         this.listAlreadyExists = true;

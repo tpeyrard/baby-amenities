@@ -147,54 +147,23 @@ export class AmenitiesService {
 
     return this.database.list(LIST_NAMES)
       .set(newListName, {admin: this.user.uid, 'invitation': invitationCode})
-      .then(() => {
-        this.addToUserToListMapping(newListName, invitationCode, true);
-
-        this.addToUsersMapping(newListName);
-      });
+      .then(() => this.addToUserToListMapping(newListName, invitationCode, true))
+      .then(() => this.addToUsersMapping(newListName));
   }
 
-  private addPrimaryList(name, listInformation: Object): Promise<void> {
+  private addListToUserList(name, listInformation: object): Promise<void> {
+    return this._userToList.update(name, listInformation);
+  }
+
+  private addToUserToListMapping(name: string, invitationCode: string, isAdmin: boolean): Promise<void> {
+    const listInformation = {'isAdmin': isAdmin, 'invitation': invitationCode};
+    return this.addListToUserList(name, listInformation);
+  }
+
+  private addToUsersMapping(listName: string): Promise<void> {
     const value = {};
-    value[name] = listInformation;
-    return this.database.list(USER_TO_LIST).set(this.user.uid, value);
-  }
-
-  private addSecondaryList(name, listInformation: Object): Promise<void> {
-    return this._userToList.set(name, listInformation);
-  }
-
-  private static listInformation(isAdmin: boolean, invitationCode: string): object {
-    return {'isAdmin': isAdmin, 'invitation': invitationCode};
-  }
-
-  private userHasNoList = (userList) => !userList || userList.length == 0;
-
-  private addToUserToListMapping(name: string, invitationCode: string, isAdmin: boolean) {
-    const listInformation = AmenitiesService.listInformation(isAdmin, invitationCode);
-    this.listNames()
-      .take(1)
-      .subscribe(userList => {
-        if (this.userHasNoList(userList)) {
-          this.addPrimaryList(name, listInformation);
-        } else {
-          this.addSecondaryList(name, listInformation);
-        }
-      });
-  }
-
-  private addToUsersMapping(listName: string) {
-    const listPath = USERS_PATH + '/' + listName;
-    this.database.object(listPath).valueChanges()
-      .subscribe((listExists) => {
-        if (listExists) {
-          this.database.list(listPath).set(this.user.uid, {present: 'true'});
-        } else {
-          const value = {};
-          value[this.user.uid] = {present: 'true'};
-          this.database.list(USERS_PATH).set(listName, value);
-        }
-      });
+    value[this.user.uid] = {present: 'true'};
+    return this.database.list(USERS_PATH).update(listName, value);
   }
 
   setSelectedList(listName: string) {
@@ -204,7 +173,6 @@ export class AmenitiesService {
   selectedList(): Observable<string> {
     return this._selectedList.asObservable();
   }
-
 
   addCurrentUserWithInvitationCode(invitationCode: string) {
     const NO_INVITATION_CODE = '0000000000';
