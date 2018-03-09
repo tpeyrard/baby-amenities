@@ -76,9 +76,9 @@ export class AmenitiesService {
 
   moveToUserCart(listName: string, article: Article) {
     if (this.user && listName) {
-      this.database.list<Article>(ARTICLE_PATH + listName).update(article.key, article.take());
-
-      this.userArticlesDatabase(listName).set(article.key, article);
+      this.database.list<Article>(ARTICLE_PATH + listName)
+        .update(article.key, article.take())
+        .then(() => this.userArticlesDatabase(listName).set(article.key, article));
     } else {
       console.log('Cannot move article to user cart. user=[' + this.user + '] - listName=[' + listName + ']');
     }
@@ -87,11 +87,9 @@ export class AmenitiesService {
   getArticlesForCurrentUser(listName: string | String): Observable<Article[]> {
     if (listName) {
       return this.userArticlesDatabase(listName).snapshotChanges()
-        .map(changes => {
-          return changes
-            .map(c => new Article(c.payload.key, c.payload.val()))
-            .filter(article => article.isNotBought());
-        });
+        .map(changes => changes
+          .map(c => new Article(c.payload.key, c.payload.val()))
+          .filter(article => article.isNotBought()));
     }
   }
 
@@ -100,8 +98,9 @@ export class AmenitiesService {
       const purchasedArticle = article.purchase();
       const key = purchasedArticle.key;
 
-      this.userArticlesDatabase(listName).update(key, purchasedArticle);
-      this.articleOfListRef(listName).update(key, purchasedArticle);
+      this.userArticlesDatabase(listName)
+        .update(key, purchasedArticle)
+        .then(() => this.articleOfListRef(listName).update(key, purchasedArticle));
     }
   }
 
@@ -110,9 +109,9 @@ export class AmenitiesService {
       const key = article.key;
       article.taken = false;
 
-      this.userArticlesDatabase(listName).remove(key);
-
-      this.articleOfListRef(listName).update(key, article);
+      this.userArticlesDatabase(listName)
+        .remove(key)
+        .then(() => this.articleOfListRef(listName).update(key, article));
     }
   }
 
@@ -181,9 +180,8 @@ export class AmenitiesService {
       .subscribe(matchingList => {
         const listName = matchingList[0].key;
 
-        this.addToUserToListMapping(listName, NO_INVITATION_CODE, false);
-
-        this.addToUsersMapping(listName);
+        this.addToUserToListMapping(listName, NO_INVITATION_CODE, false)
+          .then(() => this.addToUsersMapping(listName));
       });
 
   }
