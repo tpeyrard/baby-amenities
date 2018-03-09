@@ -36,30 +36,30 @@ export class EditorComponent implements OnInit {
 @Component({
   selector: 'dialog-overview',
   template: `
-    <h1 mat-dialog-title>Add a new article</h1>
+    <h1 mat-dialog-title>Ajouter un nouvel article</h1>
     <div mat-dialog-content>
       <mat-form-field style="width: 100%">
-        <mat-label>Name</mat-label>
-        <input matInput tabindex="1" [(ngModel)]="article.name" placeholder="Name" required>
+        <mat-label>Nom</mat-label>
+        <input matInput tabindex="1" [(ngModel)]="article.name" placeholder="Nom" required>
       </mat-form-field>
       <mat-form-field style="width: 100%">
-        <mat-label>Size</mat-label>
-        <input matInput tabindex="2" [(ngModel)]="article.size" placeholder="Size">
+        <mat-label>Taille</mat-label>
+        <input matInput tabindex="2" [(ngModel)]="article.size" placeholder="Taille">
       </mat-form-field>
       <mat-form-field style="width: 100%">
-        <mat-label>Value / Price</mat-label>
-        <input matInput tabindex="3" [(ngModel)]="article.value" placeholder="Value">
+        <mat-label>Valeur / Prix</mat-label>
+        <input matInput tabindex="3" [(ngModel)]="article.value" placeholder="Valeur">
       </mat-form-field>
       <mat-form-field style="width: 100%">
-        <mat-select tabindex="4" placeholder="Category" [(ngModel)]="article.category" name="food">
+        <mat-select tabindex="4" placeholder="Catégorie" [(ngModel)]="article.category">
           <mat-option *ngFor="let category of categories" [value]="category.value">
             {{category.viewValue}}
           </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field style="width: 100%">
-        <mat-label>Image URL</mat-label>
-        <input matInput tabindex="5" [(ngModel)]="article.image" placeholder="Image">
+        <mat-label>URL de l'image</mat-label>
+        <input matInput tabindex="5" [(ngModel)]="article.image" placeholder="http://">
       </mat-form-field>
       <mat-form-field style="width: 100%">
         <mat-label>Description</mat-label>
@@ -69,8 +69,8 @@ export class EditorComponent implements OnInit {
       </mat-form-field>
     </div>
     <div mat-dialog-actions fxLayoutAlign="center">
-      <button mat-button color="primary" [mat-dialog-close]="article" tabindex="6">Create</button>
-      <button mat-button color="warn" (click)="onNoClick()" tabindex="-1">Cancel</button>
+      <button mat-button color="primary" [mat-dialog-close]="article" tabindex="6">Créer</button>
+      <button mat-button color="warn" (click)="onNoClick()" tabindex="-1">Annuler</button>
     </div>
   `,
 })
